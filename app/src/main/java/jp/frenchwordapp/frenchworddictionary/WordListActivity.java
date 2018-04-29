@@ -1,6 +1,5 @@
 package jp.frenchwordapp.frenchworddictionary;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,16 +10,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import io.realm.Case;
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 import io.realm.Sort;
 import android.support.design.widget.FloatingActionButton;
 import android.widget.SearchView;
-import android.widget.Toolbar;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -30,7 +28,7 @@ public class WordListActivity extends AppCompatActivity {
     private RealmChangeListener mRealmListener = new RealmChangeListener() {
         @Override
         public void onChange(Object element) {
-            reloadListView();
+            mWordAdapter.notifyDataSetChanged();
         }
     };
     private ListView mListView;
@@ -58,6 +56,11 @@ public class WordListActivity extends AppCompatActivity {
 
         // ListViewの設定
         mListView = (ListView) findViewById(R.id.listView1);
+
+        // Realmデータベースから、「全てのデータを取得して登録順に並べた結果」を取得
+        RealmResults<Word> wordRealmResults = mRealm.where(Word.class).findAllSorted("id", Sort.ASCENDING);
+        //Listを定義
+        mWordList = mRealm.copyFromRealm(wordRealmResults);
         mWordAdapter = new WordListAdapter(WordListActivity.this, android.R.layout.simple_list_item_1, mWordList);
 
         // ListViewをタップしたときの処理
@@ -95,8 +98,7 @@ public class WordListActivity extends AppCompatActivity {
 
 
         if(mPartOfSpeech != null || mCategory != null) {
-            reloadSoretedView();
-            Log.d("debug", "intent exists");
+            reloadSortedView();
         }else {
             reloadListView();
         }
@@ -107,22 +109,23 @@ public class WordListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
              //todo 登録
+                Intent intent = new Intent(WordListActivity.this, RegisterActivity.class);
+                startActivity(intent);
             }
         });
     }
 
     private void reloadListView() {
-        // Realmデータベースから、「全てのデータを取得して登録順に並べた結果」を取得
-        RealmResults<Word> wordRealmResults = mRealm.where(Word.class).findAllSorted("id", Sort.ASCENDING);
+
         // 上記の結果を、TaskList としてセットする
-        mWordAdapter.setWordList(mRealm.copyFromRealm(wordRealmResults));
+        mWordAdapter.setWordList(mWordList);
         // TaskのListView用のアダプタに渡す
         mListView.setAdapter(mWordAdapter);
         // 表示を更新するために、アダプターにデータが変更されたことを知らせる
         mWordAdapter.notifyDataSetChanged();
     }
 
-    private void reloadSoretedView() {
+    private void reloadSortedView() {
 
         if(mPartOfSpeech != null) {
             // Realmデータベースから、「全てのデータを取得して登録順に並べた結果」を取得
@@ -131,13 +134,16 @@ public class WordListActivity extends AppCompatActivity {
             // Realmデータベースから、「全てのデータを取得して登録順に並べた結果」を取得
             mWordRealmResults = mRealm.where(Word.class).equalTo("category", mCategory).findAll();
         }
+        mWordList = mRealm.copyFromRealm(mWordRealmResults);
         // 上記の結果を、TaskList としてセットする
-        mWordAdapter.setWordList(mRealm.copyFromRealm(mWordRealmResults));
+        mWordAdapter.setWordList(mWordList);
         // TaskのListView用のアダプタに渡す
         mListView.setAdapter(mWordAdapter);
         // 表示を更新するために、アダプターにデータが変更されたことを知らせる
         mWordAdapter.notifyDataSetChanged();
     }
+
+
 
     @Override
     protected void onDestroy() {
@@ -160,7 +166,24 @@ public class WordListActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                mWordAdapter.getFilter().filter(s);
+                if(mPartOfSpeech != null) {
+                    // Realmデータベースから、「全てのデータを取得して登録順に並べた結果」を取得
+                    mWordRealmResults = mRealm.where(Word.class).equalTo("partOfSpeech", mPartOfSpeech).contains("word", s, Case.INSENSITIVE).findAll();
+                }else if(mCategory != null){
+                    // Realmデータベースから、「全てのデータを取得して登録順に並べた結果」を取得
+                    mWordRealmResults = mRealm.where(Word.class).equalTo("category", mCategory).contains("word", s, Case.INSENSITIVE).findAll();
+                }else{
+                    // Realmデータベースから、「全てのデータを取得して登録順に並べた結果」を取得
+                    mWordRealmResults = mRealm.where(Word.class).contains("word", s, Case.INSENSITIVE).findAll();
+                }
+                mWordList = mRealm.copyFromRealm(mWordRealmResults);
+                // 上記の結果を、TaskList としてセットする
+                mWordAdapter.setWordList(mWordList);
+                // TaskのListView用のアダプタに渡す
+                mListView.setAdapter(mWordAdapter);
+                // 表示を更新するために、アダプターにデータが変更されたことを知らせる
+                mWordAdapter.notifyDataSetChanged();
+
                 return false;
             }
         });

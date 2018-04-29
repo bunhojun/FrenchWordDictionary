@@ -10,22 +10,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
-                  android:screenOrientation="portrait"
-                  >
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WordCardActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".WordListActivity"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".SettingActivity"
-                  android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".WordCardActivity"
+            android:label="単語帳"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WordListActivity"
+            android:label="一覧"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SettingActivity"
+            android:label="設定"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RegisterActivity"
+            android:label="登録"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

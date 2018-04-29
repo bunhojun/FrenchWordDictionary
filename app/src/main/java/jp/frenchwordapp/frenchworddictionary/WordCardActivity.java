@@ -13,15 +13,14 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-
-import java.util.HashMap;
 import java.util.Locale;
 
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
-import io.realm.Sort;
+
+import static jp.frenchwordapp.frenchworddictionary.SettingActivity.mIsRandom;
 
 
 public class WordCardActivity extends AppCompatActivity implements View.OnClickListener, TextToSpeech.OnInitListener {
@@ -43,7 +42,6 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
     TextView mCategoryText;
     TextView mPartOfSpeechText;
 
-    Cursor cursor;
 
     private TextToSpeech engine;
     private Word mWordData;
@@ -55,22 +53,36 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
     private String mPartOfSpeech;
     private String mMeaning;
 
+    private String mNextWord;
+    private String mNextMeaning;
+    private String mNextCategory;
+    private String mNextPartOfSpeech;
+    private int mNextId;
+    private Word mSecondNextWordData;
+    private String mPreviousWord;
+    private String mPreviousMeaning;
+    private String mPreviousCategory;
+    private String mPreviousPartOfSpeech;
+    private int mPreviousId;
+    private Word mSecondPreviousWordData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_card);
+        //音声読み上げのインスタンス
         engine = new TextToSpeech(this, this);
 
+        //ボタンとテキストのセット
         mButton1 = findViewById(R.id.consealButton);
         mMeaningButton = findViewById(R.id.meaningButton);
+        mMeaningButton.setVisibility(View.GONE);
         mHearingButton = findViewById(R.id.hearingButton);
         mHearingButton.setOnClickListener(this);
         mNextButton = findViewById(R.id.nextButton);
         mNextButton.setOnClickListener(this);
         mBackButton = findViewById(R.id.backButton);
         mBackButton.setOnClickListener(this);
-        mMeaningButton.setVisibility(View.GONE);
         mWordText = findViewById(R.id.word);
         mCategoryText = findViewById(R.id.category);
         mPartOfSpeechText = findViewById(R.id.partOfSpeech);
@@ -100,6 +112,39 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
         mPartOfSpeechText.setText(partOfSpeech);
         mMeaning = mWordData.getMeaning();
         mMeaningButton.setText(mMeaning);
+
+        if(mCategoryIntent != null){
+
+            Word nextWordData = mRealm.where(Word.class).equalTo("category", mCategory).greaterThan("id", mWordId).findFirst();  //次の言葉のデータを取得
+            Word previousWordData = mRealm.where(Word.class).equalTo("category", mCategory).lessThan("id", mWordId).findFirst(); //前の言葉のデータを取得
+            if(nextWordData == null) {
+                mNextButton.setVisibility(View.GONE);
+            }else if(previousWordData == null){
+                mBackButton.setVisibility(View.GONE);
+            }
+
+        }else if(mPartOfSpeechIntent != null){
+
+            Word nextWordData = mRealm.where(Word.class).equalTo("partOfSpeech", mPartOfSpeech).greaterThan("id", mWordId).findFirst(); //次の言葉のデータを取得
+            Word previousWordData = mRealm.where(Word.class).equalTo("partOfSpeech", mPartOfSpeech).lessThan("id", mWordId).findFirst(); //前の言葉
+            if(nextWordData == null) {
+                mNextButton.setVisibility(View.GONE);
+            }else if(previousWordData == null){
+                mBackButton.setVisibility(View.GONE);
+            }
+        }else {
+            Word nextWordData = mRealm.where(Word.class).greaterThan("id", mWordId).findFirst(); //次の言葉のデータを取得
+            Word previousWordData = mRealm.where(Word.class).lessThan("id", mWordId).findFirst(); //前の言葉
+            if(nextWordData == null) {
+                mNextButton.setVisibility(View.GONE);
+            }else if(previousWordData == null){
+                mBackButton.setVisibility(View.GONE);
+            }
+        }
+
+
+
+
 
 
         mButton1.setOnClickListener(new View.OnClickListener() {
@@ -131,6 +176,20 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
                 setNextWord();
                 mMeaningButton.setVisibility(View.GONE);
                 mButton1.setVisibility(View.VISIBLE);
+                if(mSecondNextWordData == null) {
+                    mNextButton.setVisibility(View.GONE);
+                }
+                mBackButton.setVisibility(View.VISIBLE);
+                break;
+
+            case R.id.backButton:
+                setPreviousWord();
+                mMeaningButton.setVisibility(View.GONE);
+                mButton1.setVisibility(View.VISIBLE);
+                mNextButton.setVisibility(View.VISIBLE);
+                if(mSecondPreviousWordData == null) {
+                    mBackButton.setVisibility(View.GONE);
+                }
                 break;
         }
     }
@@ -151,67 +210,94 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void setNextWord() {
-        if (mCategoryIntent != null) {
-            Word nextWordData = mRealm.where(Word.class).equalTo("category", mCategoryIntent).greaterThan("id", mWordId).findFirst();
-            String nextWord = nextWordData.getWord();
-            String nextMeaning = nextWordData.getMeaning();
-            String nextCategory = nextWordData.getCategory();
-            String nextPartOfSpeech = nextWordData.getPartOfSpeech();
-            int nextId = nextWordData.getId();
 
-            //set text
-            mWordText.setText(nextWord);
-            mMeaningButton.setText(nextMeaning);
-            mCategoryText.setText(nextCategory);
-            mPartOfSpeechText.setText(nextPartOfSpeech);
-            //renew the word
-            mWord = nextWord;
-            mWordId = nextId;
-            mMeaning = nextMeaning;
-            mPartOfSpeech = nextPartOfSpeech;
-        } else if (mPartOfSpeech != null) {
-            Word nextWordData = mRealm.where(Word.class).equalTo("partOfSpeech", mPartOfSpeech).greaterThan("id", mWordId).findFirst();
-            String nextWord = nextWordData.getWord();
-            String nextMeaning = nextWordData.getMeaning();
-            String nextCategory = nextWordData.getCategory();
-            String nextPartOfSpeech = nextWordData.getPartOfSpeech();
-            int nextId = nextWordData.getId();
+        //次に表示される単語情報
+        if (mCategoryIntent != null) { //カテゴリーボタンを押したときの変遷の場合
+            Word nextWordData = mRealm.where(Word.class).equalTo("category", mCategory).greaterThan("id", mWordId).findFirst();  //次の言葉のデータを取得
+            mNextWord = nextWordData.getWord();
+            mNextMeaning = nextWordData.getMeaning();
+            mNextCategory = nextWordData.getCategory();
+            mNextPartOfSpeech = nextWordData.getPartOfSpeech();
+            mNextId = nextWordData.getId();
+            mSecondNextWordData = mRealm.where(Word.class).equalTo("category", mNextCategory).greaterThan("id", mNextId).findFirst();
+        } else if (mPartOfSpeechIntent != null) { //品詞ボタンのときの変遷の場合
+            Word nextWordData = mRealm.where(Word.class).equalTo("partOfSpeech", mPartOfSpeech).greaterThan("id", mWordId).findFirst(); //次の言葉のデータを取得
+            mNextWord = nextWordData.getWord();
+            mNextMeaning = nextWordData.getMeaning();
+            mNextCategory = nextWordData.getCategory();
+            mNextPartOfSpeech = nextWordData.getPartOfSpeech();
+            mNextId = nextWordData.getId();
+            mSecondNextWordData = mRealm.where(Word.class).equalTo("partOfSpeech", mNextPartOfSpeech).greaterThan("id", mNextId).findFirst();
+        } else { //一覧からの場合
 
-            //set text
-            mWordText.setText(nextWord);
-            mMeaningButton.setText(nextMeaning);
-            mCategoryText.setText(nextCategory);
-            mPartOfSpeechText.setText(nextPartOfSpeech);
-            //renew the word
-            mWord = nextWord;
-            mWordId = nextId;
-            mMeaning = nextMeaning;
-            mCategory = nextCategory;
-        } else {
+                  Word nextWordData = mRealm.where(Word.class).greaterThan("id", mWordId).findFirst();
 
-            Word nextWordData = mRealm.where(Word.class).greaterThan("id", mWordId).findFirst();
-            String nextWord = nextWordData.getWord();
-            String nextMeaning = nextWordData.getMeaning();
-            String nextCategory = nextWordData.getCategory();
-            String nextPartOfSpeech = nextWordData.getPartOfSpeech();
-            int nextId = nextWordData.getId();
+                mNextWord = nextWordData.getWord();
+                mNextMeaning = nextWordData.getMeaning();
+                mNextCategory = nextWordData.getCategory();
+                mNextPartOfSpeech = nextWordData.getPartOfSpeech();
+                mNextId = nextWordData.getId();
+                mSecondNextWordData = mRealm.where(Word.class).greaterThan("id", mNextId).findFirst();
+            //次の言葉のデータを取得
 
-            //set text
-            mWordText.setText(nextWord);
-            mMeaningButton.setText(nextMeaning);
-            mCategoryText.setText(nextCategory);
-            mPartOfSpeechText.setText(nextPartOfSpeech);
-            //renew the word
-            mWord = nextWord;
-            mWordId = nextId;
-            mMeaning = nextMeaning;
-            mCategory = nextCategory;
-            mPartOfSpeech = nextPartOfSpeech;
         }
+            //set text
+            mWordText.setText(mNextWord);
+            mMeaningButton.setText(mNextMeaning);
+            mCategoryText.setText(mNextCategory);
+            mPartOfSpeechText.setText(mNextPartOfSpeech);
+            //renew the word
+            mWord = mNextWord;
+            mWordId = mNextId;
+            mMeaning = mNextMeaning;
+            mCategory = mNextCategory;
+            mPartOfSpeech = mNextPartOfSpeech;
+
     }
 
     private void setPreviousWord() {
 
+        //前に表示される単語情報
+        if(mCategoryIntent != null) {
+
+            Word previousWordData = mRealm.where(Word.class).equalTo("category", mCategory).lessThan("id", mWordId).findAll().last();
+            mPreviousWord = previousWordData.getWord();
+            mPreviousMeaning = previousWordData.getMeaning();
+            mPreviousCategory = previousWordData.getCategory();
+            mPreviousPartOfSpeech = previousWordData.getPartOfSpeech();
+            mPreviousId = previousWordData.getId();
+            mSecondPreviousWordData = mRealm.where(Word.class).equalTo("category", mPreviousCategory).lessThan("id", mPreviousId).findFirst();
+        } else if(mPartOfSpeechIntent != null) {
+
+            Word previousWordData = mRealm.where(Word.class).equalTo("partOfSpeech", mPartOfSpeech).lessThan("id", mWordId).findAll().last();
+            mPreviousWord = previousWordData.getWord();
+            mPreviousMeaning = previousWordData.getMeaning();
+            mPreviousCategory = previousWordData.getCategory();
+            mPreviousPartOfSpeech = previousWordData.getPartOfSpeech();
+            mPreviousId = previousWordData.getId();
+            mSecondPreviousWordData = mRealm.where(Word.class).equalTo("partOfSpeech", mPreviousPartOfSpeech).lessThan("id", mPreviousId).findFirst();
+
+        } else {
+            Word previousWordData = mRealm.where(Word.class).lessThan("id", mWordId).findAll().last();
+            mPreviousWord = previousWordData.getWord();
+            mPreviousMeaning = previousWordData.getMeaning();
+            mPreviousCategory = previousWordData.getCategory();
+            mPreviousPartOfSpeech = previousWordData.getPartOfSpeech();
+            mPreviousId = previousWordData.getId();
+            mSecondPreviousWordData  = mRealm.where(Word.class).lessThan("id", mPreviousId).findFirst();
+        }
+
+            //set text
+            mWordText.setText(mPreviousWord);
+            mMeaningButton.setText(mPreviousMeaning);
+            mCategoryText.setText(mPreviousCategory);
+            mPartOfSpeechText.setText(mPreviousPartOfSpeech);
+            //renew the word
+            mWord = mPreviousWord;
+            mWordId = mPreviousId;
+            mMeaning = mPreviousMeaning;
+            mCategory = mPreviousCategory;
+            mPartOfSpeech = mPreviousPartOfSpeech;
     }
 
 

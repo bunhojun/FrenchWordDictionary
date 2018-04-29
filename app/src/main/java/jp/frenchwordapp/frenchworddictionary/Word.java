@@ -17,6 +17,7 @@ public class Word  extends RealmObject implements Serializable {
     private String meaning;
     private String partOfSpeech;
     private String category;
+    private Boolean isRandom;
 
     @PrimaryKey
     private int id;
@@ -62,5 +63,11 @@ public class Word  extends RealmObject implements Serializable {
         return category;
     }
 
+    public void setIsRandom(Boolean isRandom) {
+        this.isRandom = isRandom;
+    }
 
+    public Boolean getIsRandom() {
+        return  isRandom;
+    }
 }
