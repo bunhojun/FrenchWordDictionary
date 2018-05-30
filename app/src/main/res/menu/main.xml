@@ -2,12 +2,34 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:title="Search"
+    <item android:title="テスト"
+        android:id="@+id/wordCard"
+        android:icon="@drawable/baseline_local_library_white_18dp"
+        app:showAsAction="ifRoom">
+    </item>
+
+    <item android:title="検索"
           android:id="@+id/search_view"
           android:icon="@drawable/ic_search_white_18dp"
           app:actionViewClass="android.widget.SearchView"
-          app:showAsAction="always"
-        >
-
+          app:showAsAction="always">
     </item>
+
+
+    <item android:title="一覧・検索"
+          android:id="@+id/list"
+          android:icon="@drawable/baseline_format_list_bulleted_white_48dp"
+          app:showAsAction="ifRoom">
+    </item>
+
+    <item android:title="設定"
+          android:id="@+id/setting"
+          android:icon="@drawable/baseline_settings_white_48dp"
+          app:showAsAction="ifRoom">
+    </item>
+
+
+
+
+
 </menu>

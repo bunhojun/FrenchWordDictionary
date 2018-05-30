@@ -3,11 +3,16 @@ package jp.frenchwordapp.frenchworddictionary;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,102 +20,184 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import io.realm.Realm;
-import io.realm.RealmChangeListener;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Realm mRealm;
 
-    Button mButton1;
-    Button mButton2;
-    Button mButton3;
-    Button mButton4;
-    Button mButton5;
-    Button mNounButton;
-    Button mOtherButton;
-    Button mLifeCategoryButton;
-    Button mGreetingCategoryButton;
+    Button mNounButton, mVerbButton, mAdjectiveButton, mAdverbButton, mPrepositionButton,
+    mOtherButton, mLifeCategoryButton, mGreetingCategoryButton, mBasicButton, mNumberButton, mTravelCateGory, mOtherCategory;
 
-    private Word mCategory;
-    private Intent mIntent;
+    private Intent mListIntent; //メンバ変数にしておく
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Realm
+        mRealm = Realm.getDefaultInstance();
 
+        //read svc file
         reader(MainActivity.this);
 
-        mButton1 = findViewById(R.id.wordCardButton);
-        mButton4 = findViewById(R.id.searchListButton);
-        mButton5 = findViewById(R.id.settingButton);
+        TextView textView1 = findViewById(R.id.titleText4);
+        Typeface typeface1 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
+        textView1.setTypeface(typeface1);
+
+
+        TextView textView2 = findViewById(R.id.titleText5);
+        Typeface typeface2 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
+        textView2.setTypeface(typeface2);
+
+        TextView textView3 = findViewById(R.id.titleText6);
+        Typeface typeface3 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
+        textView3.setTypeface(typeface3);
+
+        //button setting
         mNounButton = findViewById(R.id.nounButton);
         mNounButton.setOnClickListener(this);
+        Typeface typeface4 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
+        mNounButton.setTypeface(typeface4);
+        mVerbButton = findViewById(R.id.verbButton);
+        mVerbButton.setOnClickListener(this);
+        Typeface typeface5 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
+        mVerbButton.setTypeface(typeface5);
+        mAdjectiveButton = findViewById(R.id.adjectiveButton);
+        mAdjectiveButton.setOnClickListener(this);
+        Typeface typeface6 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
+        mAdjectiveButton.setTypeface(typeface6);
+        mAdverbButton = findViewById(R.id.adverbButton);
+        mAdverbButton.setOnClickListener(this);
+        Typeface typeface7 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
+        mAdverbButton.setTypeface(typeface7);
+        mPrepositionButton = findViewById(R.id.prepositionButton);
+        mPrepositionButton.setOnClickListener(this);
+        Typeface typeface8 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
+        mPrepositionButton.setTypeface(typeface8);
         mOtherButton = findViewById(R.id.otherButton);
         mOtherButton.setOnClickListener(this);
+        Typeface typeface9 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
+        mOtherButton.setTypeface(typeface9);
         mLifeCategoryButton = findViewById(R.id.lifeCategory);
         mLifeCategoryButton.setOnClickListener(this);
+        Typeface typeface10 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
+        mLifeCategoryButton.setTypeface(typeface10);
         mGreetingCategoryButton = findViewById(R.id.greetingCategory);
         mGreetingCategoryButton.setOnClickListener(this);
-
-        mButton1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, WordCardActivity.class);
-            }
-        });
-
-
-        mButton4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, WordListActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        mButton5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, SettingActivity.class);
-                startActivity(intent);
-            }
-        });
-
+        Typeface typeface11 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
+        mGreetingCategoryButton.setTypeface(typeface11);
+        mBasicButton = findViewById(R.id.basicCategory);
+        mBasicButton.setOnClickListener(this);
+        Typeface typeface12 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
+        mBasicButton.setTypeface(typeface12);
+        mNumberButton = findViewById(R.id.numberCategory);
+        mNumberButton.setOnClickListener(this);
+        Typeface typeface13 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
+        mNumberButton.setTypeface(typeface13);
+        mOtherCategory = findViewById(R.id.otherCategory);
+        mOtherCategory.setOnClickListener(this);
+        Typeface typeface14 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
+        mOtherCategory.setTypeface(typeface14);
+        mTravelCateGory = findViewById(R.id.travelCategory);
+        mTravelCateGory.setOnClickListener(this);
+        Typeface typeface15 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
+        mTravelCateGory.setTypeface(typeface15);
     }
 
     @Override
     public void onClick(View v) {
-        // Perform action on click
         switch(v.getId()) {
+                //part of speech
             case R.id.nounButton:
-                mIntent = new Intent(MainActivity.this, WordListActivity.class);
-                mIntent.putExtra("PART OF SPEECH", "名詞");
-                startActivity(mIntent);
+                mListIntent = new Intent(MainActivity.this, WordListActivity.class); //must initialise intent here
+                mListIntent.putExtra("PART OF SPEECH", "名詞");
+                startActivity(mListIntent);
                 break;
-
+            case R.id.verbButton:
+                mListIntent = new Intent(MainActivity.this, WordListActivity.class); //must initialise intent here
+                mListIntent.putExtra("PART OF SPEECH", "動詞");
+                startActivity(mListIntent);
+                break;
+            case R.id.adjectiveButton:
+                mListIntent = new Intent(MainActivity.this, WordListActivity.class); //must initialise intent here
+                mListIntent.putExtra("PART OF SPEECH", "形容詞");
+                startActivity(mListIntent);
+                break;
+            case R.id.adverbButton:
+                mListIntent = new Intent(MainActivity.this, WordListActivity.class); //must initialise intent here
+                mListIntent.putExtra("PART OF SPEECH", "副詞");
+                startActivity(mListIntent);
+                break;
+            case R.id.prepositionButton:
+                mListIntent = new Intent(MainActivity.this, WordListActivity.class); //must initialise intent here
+                mListIntent.putExtra("PART OF SPEECH", "前置詞");
+                startActivity(mListIntent);
+                break;
             case R.id.otherButton:
-                mIntent = new Intent(MainActivity.this, WordListActivity.class);
-                mIntent.putExtra("PART OF SPEECH", "その他");
-                startActivity(mIntent);
-                Log.d("debug", "hinshi on");
+                mListIntent = new Intent(MainActivity.this, WordListActivity.class);
+                mListIntent.putExtra("PART OF SPEECH", "その他");
+                startActivity(mListIntent);
                 break;
-
+                //category
             case R.id.lifeCategory:
-                mIntent = new Intent(MainActivity.this, WordListActivity.class);
-                mIntent.putExtra("CATEGORY", "生活");
-                startActivity(mIntent);
-                Log.d("debug", "life on");
+                mListIntent = new Intent(MainActivity.this, WordListActivity.class);
+                mListIntent.putExtra("CATEGORY", "生活");
+                startActivity(mListIntent);
                 break;
-
             case R.id.greetingCategory:
-                mIntent = new Intent(MainActivity.this, WordListActivity.class);
-                mIntent.putExtra("CATEGORY", "あいさつ");
-                startActivity(mIntent);
-                Log.d("debug", "greeting on");
+                mListIntent = new Intent(MainActivity.this, WordListActivity.class);
+                mListIntent.putExtra("CATEGORY", "あいさつ");
+                startActivity(mListIntent);
+                break;
+            case R.id.basicCategory:
+                mListIntent = new Intent(MainActivity.this, WordListActivity.class);
+                mListIntent.putExtra("CATEGORY", "基本単語");
+                startActivity(mListIntent);
+                break;
+            case R.id.numberCategory:
+                mListIntent = new Intent(MainActivity.this, WordListActivity.class);
+                mListIntent.putExtra("CATEGORY", "数量");
+                startActivity(mListIntent);
+                break;
+            case R.id.otherCategory:
+                mListIntent = new Intent(MainActivity.this, WordListActivity.class);
+                mListIntent.putExtra("CATEGORY", "その他");
+                startActivity(mListIntent);
                 break;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        MenuItem item = menu.findItem(R.id.search_view);
+        item.setVisible(false);
+        MenuItem wordCard = menu.findItem(R.id.wordCard);
+        wordCard.setVisible(false);
+        MenuItem list = menu.findItem(R.id.list);
+        MenuItem setting = menu.findItem(R.id.setting);
+
+        list.setOnMenuItemClickListener((new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent listIntent = new Intent(MainActivity.this, WordListActivity.class);
+                startActivity(listIntent);
+                return true;
+            }
+        }));
+
+        setting.setOnMenuItemClickListener((new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent settingIntent = new Intent(MainActivity.this, SettingActivity.class);
+                startActivity(settingIntent);
+                return true;
+            }
+        }));
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     public void reader(Context context) {
@@ -135,7 +222,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 data.setPartOfSpeech(RowData[3]);
                 data.setCategory(RowData[4]);
 
-                mRealm = Realm.getDefaultInstance();
                 mRealm.beginTransaction();
                 mRealm.copyToRealmOrUpdate(data);
                 mRealm.commitTransaction();
@@ -149,7 +235,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
         mRealm.close();
     }
 }

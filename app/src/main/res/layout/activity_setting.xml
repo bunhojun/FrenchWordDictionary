@@ -1,21 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="16dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context="jp.frenchwordapp.frenchworddictionary.SettingActivity">
 
-    <Button
+
+    <Switch
+        android:id="@+id/randomSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="random"
-        android:id="@+id/randomButton"/>
+        android:layout_marginTop="50dp"
+        android:switchPadding="130dp"
+        android:text="テストをランダム形式にする"/>
 
-    <Button
+    <Switch
+        android:id="@+id/reverseSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="unrandom"
-        android:id="@+id/unRandomButton"/>
+        android:layout_marginTop="50dp"
+        android:switchPadding="130dp"
+        android:text="単語名と意味の表示を交換"/>
 
-</RelativeLayout>
+    <Switch
+        android:id="@+id/sortWrongSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:switchPadding="130dp"
+        android:text="不正解の単語のみをテストする"/>
+
+</LinearLayout>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffffff"
+    tools:context=".TestActivity">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="15dp"
+        android:textSize="30dp"
+        android:background="@drawable/button1"
+        android:id="@+id/openingButton"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:layout_marginTop="30dp"
+        android:id="@+id/countText"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/countText"
+        android:textSize="35dp"
+        android:textColor="#020202"
+        android:id="@+id/timerText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/timerText"
+        android:layout_marginTop="30dp"
+        android:textColor="#020202"
+        android:id="@+id/categoryText" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/partOfSpeechText"
+        android:textColor="#020202"
+        android:layout_below="@+id/categoryText"/>
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_hearing_black_24dp"
+        android:id="@+id/hearingButton"
+        android:layout_centerHorizontal="true"
+        android:background="#ffffffff"
+        android:layout_below="@+id/partOfSpeechText"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/wordText"
+        android:textSize="30dp"
+        android:textAlignment="center"
+        android:textColor="#020202"
+        android:layout_marginTop="35dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_below="@+id/partOfSpeechText"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="25dp"
+        android:id="@+id/meaningText"
+        android:textAlignment="center"
+        android:layout_marginTop="120dp"
+        android:textColor="#020202"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_below="@+id/wordText"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:id="@+id/concealButton"
+        android:textAlignment="center"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/wordText"
+        android:background="@drawable/button_2"
+        android:layout_above="@+id/nextButton"
+        android:text="答えを表示"
+        />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_forward_black_24dp"
+        android:id="@+id/nextButton"
+        android:layout_centerHorizontal="true"
+        android:background="#ffffffff"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="12dp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/nextButton"
+        android:text="〇"
+        android:layout_marginRight="16dp"
+        android:textSize="20dp"
+        android:background="@drawable/button_2"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/circleButton"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/nextButton"
+        android:text="✖"
+        android:layout_marginLeft="16dp"
+        android:textSize="20dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/button_2"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/crossButton"/>
+
+
+</RelativeLayout>

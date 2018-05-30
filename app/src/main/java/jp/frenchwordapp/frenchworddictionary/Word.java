@@ -1,6 +1,7 @@
 package jp.frenchwordapp.frenchworddictionary;
 
 import android.content.Intent;
+import android.util.Log;
 
 import java.io.Serializable;
 
@@ -12,12 +13,12 @@ import io.realm.annotations.PrimaryKey;
  */
 
 public class Word  extends RealmObject implements Serializable {
-
     private String word;
     private String meaning;
     private String partOfSpeech;
     private String category;
-    private Boolean isRandom;
+    private boolean checked, wrong, correct;
+
 
     @PrimaryKey
     private int id;
@@ -63,11 +64,11 @@ public class Word  extends RealmObject implements Serializable {
         return category;
     }
 
-    public void setIsRandom(Boolean isRandom) {
-        this.isRandom = isRandom;
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 
-    public Boolean getIsRandom() {
-        return  isRandom;
+    public boolean isChecked() {
+        return checked;
     }
 }

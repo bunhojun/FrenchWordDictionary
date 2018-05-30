@@ -1,4 +1,125 @@
-1,Salut.,やあ,その他,あいさつ
-2,Bonjour.,こんにちは,その他,あいさつ
-3,maison,家,名詞,生活
-4,une vie,人生,名詞,生活
+0,une fille,娘,名詞,基本単語
+1,une famille,家族,名詞,基本単語
+2,des parents,両親,名詞,基本単語
+3,un père,父,名詞,基本単語
+4,une mère,母,名詞,基本単語
+5,les époux,夫婦,名詞,基本単語
+6,un concubin/une concubine,同棲者(内縁の夫·妻),名詞,基本単語
+7,un mari,夫,名詞,基本単語
+8,une femme,妻,名詞,基本単語
+9,un enfant / une enfant,子ども,名詞,基本単語
+10,un seul enfant / une seule enfant,一人っ子,名詞,基本単語
+11,des jumeaux / des jumelles,双子,名詞,基本単語
+12,un fils,息子,名詞,基本単語
+13,à,において[位置],前置詞,基本単語
+14,devant,の前で[場所],前置詞,基本単語
+15,derrière,の後ろで[場所],前置詞,基本単語
+16,avant,前に[時間],前置詞,基本単語
+17,après,あとで[時間],前置詞,基本単語
+18,jusqu'à,まで[時間/場所],前置詞,基本単語
+19,de,の[所有],前置詞,基本単語
+20,pour,のため,前置詞,基本単語
+21,par,によって,前置詞,基本単語
+22,dans,の中に,前置詞,基本単語
+23,au dessus de,の上に,前置詞,基本単語
+24,au dessous de,~の下に,前置詞,基本単語
+25,contre,に対して,前置詞,基本単語
+26,sauf,~以外,前置詞,基本単語
+27,entre,~の間に[場所/時間],前置詞,基本単語
+28,vers,のころ,前置詞,基本単語
+29,à travers,を通って,前置詞,基本単語
+30,chez,のところ,前置詞,基本単語
+31,sans,なしで,前置詞,基本単語
+32,avec,と一緒に,前置詞,基本単語
+33,très,とても,副詞,基本単語
+34,un peu,少し,副詞,基本単語
+35,assez,かなり,副詞,基本単語
+36,presque,ほとんど,副詞,基本単語
+37,pas encore,まだ,副詞,基本単語
+38,déjà,すでに,副詞,基本単語
+39,surtout,特に,副詞,基本単語
+40,d'habitude,普段は,副詞,基本単語
+41,tôt,早く,副詞,基本単語
+42,lentement,遅く,副詞,基本単語
+43,pas du tout,まったく~ない,副詞,基本単語
+44,longtemps,久しく,副詞,基本単語
+45,plus,もっと,副詞,基本単語
+46,d'abord,まず,副詞,基本単語
+47,vraiment,本当に,副詞,基本単語
+48,ensemble,一緒に,副詞,基本単語
+49,bien sûr,もちろん,副詞,基本単語
+50,probablement,たぶん,副詞,基本単語
+51,enfin,ついに,副詞,基本単語
+52,certainement,たしかに,副詞,基本単語
+53,neuf / neuve,新しい,形容詞,基本単語
+54,vieux/vieille,古い,形容詞,基本単語
+55,bon/bonne,良い,形容詞,基本単語
+56,mauvais/mauvaise,悪い,形容詞,基本単語
+57,facile,簡単な,形容詞,基本単語
+58,difficile,難しい,形容詞,基本単語
+59,spécial/spéciale,特別の,形容詞,基本単語
+60,normal/normale,普通の,形容詞,基本単語
+61,fort/forte,強い,形容詞,基本単語
+62,faible,弱い,形容詞,基本単語
+63,bruyant/bruyante,うるさい,形容詞,基本単語
+64,calme,静かな,形容詞,基本単語
+65,propre,清潔な,形容詞,基本単語
+66,sale,汚い,形容詞,基本単語
+67,clair/claire,明るい,形容詞,基本単語
+68,sombre,暗い,形容詞,基本単語
+69,proche,近い,形容詞,基本単語
+70,loin,遠い,形容詞,基本単語
+71,vite,速い,形容詞,基本単語
+72,lent/lente,遅い,形容詞,基本単語
+73,aller,行く,動詞,基本単語
+74,venir,くる,動詞,基本単語
+75,rentrer,かえる,動詞,基本単語
+76,prendre,乗る,動詞,基本単語
+77,descendre,降りる,動詞,基本単語
+78,lire,読む,動詞,基本単語
+79,écouter,きく,動詞,基本単語
+80,chanter,歌う,動詞,基本単語
+81,regarder,見る,動詞,基本単語
+82,parler,話す,動詞,基本単語
+83,dire,言う,動詞,基本単語
+84,écrire,書く,動詞,基本単語
+85,penser,思う,動詞,基本単語
+86,réfléchir,考える,動詞,基本単語
+87,sentir,感じる,動詞,基本単語
+88,connaître,知る,動詞,基本単語
+89,comprendre,理解する,動詞,基本単語
+90,décider,決める,動詞,基本単語
+91,oublier,忘れる,動詞,基本単語
+92,se souvenir,思い出す,動詞,基本単語
+93,un,1,その他,数量
+94,deux,2,その他,数量
+95,trois,3,その他,数量
+96,quatre,4,その他,数量
+97,cinq,5,その他,数量
+98,six,6,その他,数量
+99,sept,7,その他,数量
+100,huit,8,その他,数量
+101,neuf,9,その他,数量
+102,dix,10,その他,数量
+103,onze,11,その他,数量
+104,douze,12,その他,数量
+105,treize,13,その他,数量
+106,quatorze,14,その他,数量
+107,quinze,15,その他,数量
+108,seize,16,その他,数量
+109,dix-sept,17,その他,数量
+110,dix-huit,18,その他,数量
+111,dix-neuf,19,その他,数量
+112,vingt,20,その他,数量
+113,Salut.,やあ / またね,その他,あいさつ
+114,Bonjour.,おはよう,その他,あいさつ
+115,Bonsoir.,こんばんは,その他,あいさつ
+116,Bonne nuit.,おやすみなさい,その他,あいさつ
+117,Au revoir,さようなら,その他,あいさつ
+118,Enchanté/Enchantée.,はじめまして,その他,あいさつ
+119,Je suis ravi de vous voir./Je suis ravie de vous voir.,お会いできて嬉しいです,その他,あいさつ
+120,Comment allez-vous?,お元気ですか,その他,あいさつ
+121,Je vais bien.,元気です,その他,あいさつ
+122,Comme ci comme ça.,まあまあです,その他,あいさつ
+123,Ça fait longtemps.,お久しぶりです,その他,あいさつ
+124,S’il vous plaît.,お願いします,その他,あいさつ

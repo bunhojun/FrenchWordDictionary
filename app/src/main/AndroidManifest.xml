@@ -12,30 +12,26 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
+            android:label="フラ語app"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".WordCardActivity"
-            android:label="単語帳"
+            android:label="単語カード"
             android:screenOrientation="portrait" />
         <activity
             android:name=".WordListActivity"
-            android:label="一覧"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SettingActivity"
             android:label="設定"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".RegisterActivity"
-            android:label="登録"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".TestActivity"
+            android:screenOrientation="portrait" />
     </application>
-
 </manifest>

@@ -7,4 +7,9 @@
         android:angle="90"
         android:startColor="#fdfdfd"
         android:endColor="#f0f0f5" />
+
+    <stroke
+        android:width="2dp"
+        android:color="#1734465d" />
+
 </shape>

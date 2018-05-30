@@ -8,12 +8,20 @@
     android:fitsSystemWindows="true"
     tools:context="jp.frenchwordapp.frenchworddictionary.WordListActivity">
 
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textSize="30dp"
+        android:text="カテゴリー:すべて"
+        android:id="@+id/textView"
+        android:background="@drawable/text1"/>
 
     <ListView
         android:id="@+id/listView1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -25,3 +33,4 @@
         app:backgroundTint="@color/colorPrimary"/>
 
 </android.support.design.widget.CoordinatorLayout>
+

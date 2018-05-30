@@ -6,33 +6,85 @@
     android:layout_height="match_parent"
     tools:context="jp.frenchwordapp.frenchworddictionary.MainActivity">
 
-    <Button
-        android:id="@+id/wordCardButton"
-        android:layout_width="match_parent"
+
+      <TextView
+        android:id="@+id/titleText1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="wordcard"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="cursive"
+        android:text="français carte mémoire app"
+        android:layout_marginTop="30dp"
+        android:textSize="30dp"/>
+
+    <TextView
+        android:id="@+id/titleText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="cursive"
+        android:layout_below="@+id/titleText1"
+        android:text="juste pour mémoriser"
+        android:textSize="30dp"/>
+
+    <TextView
+        android:id="@+id/titleText3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="cursive"
+        android:layout_below="@+id/titleText2"
+        android:text="plusieurs mots français avec"
+        android:textSize="30dp"/>
+    <TextView
+        android:id="@+id/titleText4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@drawable/button1"
-        />
+        android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif-smallcaps"
+        android:layout_below="@+id/titleText3"
+        android:text="たくさんのフランス語単語を"
+        android:textSize="23dp"/>
+    <TextView
+        android:id="@+id/titleText5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif-smallcaps"
+        android:layout_below="@+id/titleText4"
+        android:text="ただ覚えるための"
+        android:textSize="23dp"/>
+
+    <TextView
+        android:id="@+id/titleText6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif-smallcaps"
+        android:layout_below="@+id/titleText5"
+        android:text="フランス語単語帳アプリ"
+        android:textSize="23dp"/>
 
     <TextView
         android:id="@+id/categoryText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:textSize="15dp"
         android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif-smallcaps"
+        android:layout_above="@+id/horizontalScrollView"
         android:text="catégorie"
         />
-
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="5dp"
         android:overScrollMode="never"
         android:scrollbars="none"
-        android:layout_below="@+id/categoryText">
+        android:layout_above="@+id/partOfSpeechText">
 
 
         <LinearLayout
@@ -57,33 +109,37 @@
                 android:background="@drawable/button1" />
 
             <Button
-                android:id="@+id/category3"
+                android:id="@+id/basicCategory"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginLeft="5dp"
+                android:text="基本単語"
                 android:background="@drawable/button1" />
 
             <Button
-                android:id="@+id/category4"
+                android:id="@+id/numberCategory"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginLeft="5dp"
+                android:text="数量"
                 android:background="@drawable/button1" />
 
             <Button
-                android:id="@+id/category5"
+                android:id="@+id/travelCategory"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
+                android:text="トラベル"
                 android:layout_marginLeft="5dp"
-                android:background="@drawable/button1" />
+                android:background="@drawable/button1"/>
 
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/otherCategory"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:text="その他"
                 android:background="@drawable/button1" />
 
         </LinearLayout>
@@ -93,19 +149,22 @@
         android:id="@+id/partOfSpeechText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="190dp"
+        android:layout_above="@+id/horizontalScrollView1"
+        android:layout_marginBottom="5dp"
+        android:textSize="15dp"
+        android:fontFamily="sans-serif-smallcaps"
         android:layout_centerHorizontal="true"
         android:text="les partie du discours" />
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="220dp"
+        android:layout_height="90dp"
+        android:layout_marginBottom="15dp"
+        android:layout_alignParentBottom="true"
         android:overScrollMode="never"
         android:scrollbars="none"
         >
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -161,27 +220,7 @@
                 android:background="@drawable/button1"
                 android:text="その他" />
 
-
         </LinearLayout>
     </HorizontalScrollView>
-
-    <Button
-        android:id="@+id/searchListButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="340dp"
-        android:background="@drawable/button1"
-        android:text="一覧・検索" />
-
-    <Button
-        android:id="@+id/settingButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/searchListButton"
-        android:background="@drawable/button1"
-        android:layout_marginTop="5dp"
-        android:text="設定" />
 
 </RelativeLayout>
