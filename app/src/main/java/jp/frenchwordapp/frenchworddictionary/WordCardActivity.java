@@ -38,7 +38,7 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
     private int mWordId;
     private String mWord, mCategoryIntent, mCategory, mPartOfSpeechIntent, mPartOfSpeech, mMeaning;
     SharedPreferences mSetting;
-    private Boolean mIsReverse;
+    private Boolean mIsReverse, mIsAutoPlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,7 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
         //setting
         mSetting = getSharedPreferences("setting", Context.MODE_PRIVATE);
         mIsReverse = mSetting.getBoolean("reverse", false);
+        mIsAutoPlay = mSetting.getBoolean("autoPlay", false);
 
         //音声読み上げのインスタンス
         engine = new TextToSpeech(this, this);
@@ -106,6 +107,7 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
         String partOfSpeech = mWordData.getPartOfSpeech();
         mPartOfSpeechText.setText(partOfSpeech);
 
+
         //check button setting
         if (mEditedData == null) {
             isCorrect = false;
@@ -149,8 +151,6 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
                 mBackButton.setVisibility(View.GONE);
             }
         }
-
-
     }
 
     @Override
@@ -166,11 +166,13 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
                 mMeaningButton.setVisibility(View.VISIBLE);
                 mConcealButton.setVisibility(View.GONE);
                 mHearingButton.setVisibility(View.VISIBLE);
+                if(mIsAutoPlay&&mIsReverse){
+                    speech();
+                }
                 break;
 
             case R.id.hearingButton:
                 speech();
-                Log.d("Speech", "speech is on");
                 break;
 
             case R.id.nextButton:
@@ -202,6 +204,9 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
                     mWordText.setTextColor(Color.parseColor("#020202"));
                 }
 
+                if(mIsAutoPlay&&!mIsReverse){
+                    speech();
+                }
 
                 break;
 
@@ -234,6 +239,9 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
                     mWordText.setTextColor(Color.parseColor("#020202"));
                 }
 
+                if(mIsAutoPlay&&!mIsReverse){
+                    speech();
+                }
 
                 break;
         }
@@ -263,12 +271,14 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
         if (status == TextToSpeech.SUCCESS) {
             Log.d("Speech", "Success!");
             engine.setLanguage(Locale.FRENCH);
+            if(mIsAutoPlay&&!mIsReverse){
+                speech();
+            }
         }
     }
 
     private void speech() {
         engine.speak(mWord, TextToSpeech.QUEUE_FLUSH, null, null);
-        Log.d("Speech", "speak is on");
     }
 
     private void setNextWord() {
@@ -323,7 +333,6 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
         }
         mCategoryText.setText(mCategory);
         mPartOfSpeechText.setText(mPartOfSpeech);
-
     }
 
     private void setPreviousWord() {
@@ -385,11 +394,11 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
         mPartOfSpeechText.setText(mPartOfSpeech);
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         engine.shutdown();
         mRealm.close();
     }
-
 }
