@@ -131,7 +131,8 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
             mPreviousWordData = mRealm.where(Word.class).equalTo("category", mCategory).greaterThan("id", mWordId).findFirst();  //次の言葉のデータを取得
             if (mNextWordData == null) {
                 mNextButton.setVisibility(View.GONE);
-            } else if (mPreviousWordData == null) {
+            }
+            if (mPreviousWordData == null) {
                 mBackButton.setVisibility(View.GONE);
             }
         } else if (mPartOfSpeechIntent != null) {
@@ -139,7 +140,8 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
             mNextWordData = mRealm.where(Word.class).equalTo("partOfSpeech", mPartOfSpeech).lessThan("id", mWordId).findFirst(); //前の言葉
             if (mNextWordData == null) {
                 mNextButton.setVisibility(View.GONE);
-            } else if (mPreviousWordData == null) {
+            }
+            if (mPreviousWordData == null) {
                 mBackButton.setVisibility(View.GONE);
             }
         } else {
@@ -147,7 +149,8 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
             mNextWordData = mRealm.where(Word.class).lessThan("id", mWordId).findFirst(); //前の言葉
             if (mNextWordData == null) {
                 mNextButton.setVisibility(View.GONE);
-            } else if (mPreviousWordData == null) {
+            }
+            if (mPreviousWordData == null) {
                 mBackButton.setVisibility(View.GONE);
             }
         }
