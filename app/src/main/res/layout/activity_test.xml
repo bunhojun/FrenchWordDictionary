@@ -41,7 +41,7 @@
         android:layout_below="@+id/timerText"
         android:layout_marginTop="30dp"
         android:textColor="#020202"
-        android:id="@+id/categoryText" />
+        android:id="@+id/levelText" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="30dp"

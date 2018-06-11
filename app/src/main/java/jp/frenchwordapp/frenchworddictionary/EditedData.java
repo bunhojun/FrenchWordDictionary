@@ -1,29 +1,18 @@
 package jp.frenchwordapp.frenchworddictionary;
 
-import android.content.Intent;
-import android.util.Log;
-
 import java.io.Serializable;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-/**
- * Created by ponnp on 17/04/2018.
- */
+public class EditedData extends RealmObject implements Serializable {
 
-public class Word  extends RealmObject implements Serializable {
-    private String word;
-    private String meaning;
-    private String partOfSpeech;
-    private String level;
-
-
+    private boolean correct, wrong;
+    private String level, partOfSpeech;
     @PrimaryKey
     private int id;
 
-    public void setId(String sid) {
-        id = Integer.parseInt(sid);
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -31,20 +20,20 @@ public class Word  extends RealmObject implements Serializable {
         return id;
     }
 
-    public void setWord(String word) {
-        this.word = word;
+    public void setCorrect(boolean correct) {
+        this.correct = correct;
     }
 
-    public String getWord() {
-        return word;
+    public boolean isCorrect() {
+        return correct;
     }
 
-    public void setMeaning(String meaning) {
-        this.meaning = meaning;
+    public void setWrong(boolean wrong) {
+        this.wrong = wrong;
     }
 
-    public String getMeaning() {
-        return meaning;
+    public boolean isWrong() {
+        return wrong;
     }
 
     public void setPartOfSpeech(String partOfSpeech) {

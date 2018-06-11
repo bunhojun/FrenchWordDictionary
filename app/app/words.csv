@@ -1,125 +1,600 @@
-0,une fille,娘,名詞,基本単語
-1,une famille,家族,名詞,基本単語
-2,des parents,両親,名詞,基本単語
-3,un père,父,名詞,基本単語
-4,une mère,母,名詞,基本単語
-5,les époux,夫婦,名詞,基本単語
-6,un concubin/une concubine,同棲者(内縁の夫·妻),名詞,基本単語
-7,un mari,夫,名詞,基本単語
-8,une femme,妻,名詞,基本単語
-9,un enfant / une enfant,子ども,名詞,基本単語
-10,un seul enfant / une seule enfant,一人っ子,名詞,基本単語
-11,des jumeaux / des jumelles,双子,名詞,基本単語
-12,un fils,息子,名詞,基本単語
-13,à,において[位置],前置詞,基本単語
-14,devant,の前で[場所],前置詞,基本単語
-15,derrière,の後ろで[場所],前置詞,基本単語
-16,avant,前に[時間],前置詞,基本単語
-17,après,あとで[時間],前置詞,基本単語
-18,jusqu'à,まで[時間/場所],前置詞,基本単語
-19,de,の[所有],前置詞,基本単語
-20,pour,のため,前置詞,基本単語
-21,par,によって,前置詞,基本単語
-22,dans,の中に,前置詞,基本単語
-23,au dessus de,の上に,前置詞,基本単語
-24,au dessous de,~の下に,前置詞,基本単語
-25,contre,に対して,前置詞,基本単語
-26,sauf,~以外,前置詞,基本単語
-27,entre,~の間に[場所/時間],前置詞,基本単語
-28,vers,のころ,前置詞,基本単語
-29,à travers,を通って,前置詞,基本単語
-30,chez,のところ,前置詞,基本単語
-31,sans,なしで,前置詞,基本単語
-32,avec,と一緒に,前置詞,基本単語
-33,très,とても,副詞,基本単語
-34,un peu,少し,副詞,基本単語
-35,assez,かなり,副詞,基本単語
-36,presque,ほとんど,副詞,基本単語
-37,pas encore,まだ,副詞,基本単語
-38,déjà,すでに,副詞,基本単語
-39,surtout,特に,副詞,基本単語
-40,d'habitude,普段は,副詞,基本単語
-41,tôt,早く,副詞,基本単語
-42,lentement,遅く,副詞,基本単語
-43,pas du tout,まったく~ない,副詞,基本単語
-44,longtemps,久しく,副詞,基本単語
-45,plus,もっと,副詞,基本単語
-46,d'abord,まず,副詞,基本単語
-47,vraiment,本当に,副詞,基本単語
-48,ensemble,一緒に,副詞,基本単語
-49,bien sûr,もちろん,副詞,基本単語
-50,probablement,たぶん,副詞,基本単語
-51,enfin,ついに,副詞,基本単語
-52,certainement,たしかに,副詞,基本単語
-53,neuf / neuve,新しい,形容詞,基本単語
-54,vieux/vieille,古い,形容詞,基本単語
-55,bon/bonne,良い,形容詞,基本単語
-56,mauvais/mauvaise,悪い,形容詞,基本単語
-57,facile,簡単な,形容詞,基本単語
-58,difficile,難しい,形容詞,基本単語
-59,spécial/spéciale,特別の,形容詞,基本単語
-60,normal/normale,普通の,形容詞,基本単語
-61,fort/forte,強い,形容詞,基本単語
-62,faible,弱い,形容詞,基本単語
-63,bruyant/bruyante,うるさい,形容詞,基本単語
-64,calme,静かな,形容詞,基本単語
-65,propre,清潔な,形容詞,基本単語
-66,sale,汚い,形容詞,基本単語
-67,clair/claire,明るい,形容詞,基本単語
-68,sombre,暗い,形容詞,基本単語
-69,proche,近い,形容詞,基本単語
-70,loin,遠い,形容詞,基本単語
-71,vite,速い,形容詞,基本単語
-72,lent/lente,遅い,形容詞,基本単語
-73,aller,行く,動詞,基本単語
-74,venir,くる,動詞,基本単語
-75,rentrer,かえる,動詞,基本単語
-76,prendre,乗る,動詞,基本単語
-77,descendre,降りる,動詞,基本単語
-78,lire,読む,動詞,基本単語
-79,écouter,きく,動詞,基本単語
-80,chanter,歌う,動詞,基本単語
-81,regarder,見る,動詞,基本単語
-82,parler,話す,動詞,基本単語
-83,dire,言う,動詞,基本単語
-84,écrire,書く,動詞,基本単語
-85,penser,思う,動詞,基本単語
-86,réfléchir,考える,動詞,基本単語
-87,sentir,感じる,動詞,基本単語
-88,connaître,知る,動詞,基本単語
-89,comprendre,理解する,動詞,基本単語
-90,décider,決める,動詞,基本単語
-91,oublier,忘れる,動詞,基本単語
-92,se souvenir,思い出す,動詞,基本単語
-93,un,1,その他,数量
-94,deux,2,その他,数量
-95,trois,3,その他,数量
-96,quatre,4,その他,数量
-97,cinq,5,その他,数量
-98,six,6,その他,数量
-99,sept,7,その他,数量
-100,huit,8,その他,数量
-101,neuf,9,その他,数量
-102,dix,10,その他,数量
-103,onze,11,その他,数量
-104,douze,12,その他,数量
-105,treize,13,その他,数量
-106,quatorze,14,その他,数量
-107,quinze,15,その他,数量
-108,seize,16,その他,数量
-109,dix-sept,17,その他,数量
-110,dix-huit,18,その他,数量
-111,dix-neuf,19,その他,数量
-112,vingt,20,その他,数量
-113,Salut.,やあ / またね,その他,あいさつ
-114,Bonjour.,おはよう,その他,あいさつ
-115,Bonsoir.,こんばんは,その他,あいさつ
-116,Bonne nuit.,おやすみなさい,その他,あいさつ
-117,Au revoir,さようなら,その他,あいさつ
-118,Enchanté/Enchantée.,はじめまして,その他,あいさつ
-119,Je suis ravi de vous voir./Je suis ravie de vous voir.,お会いできて嬉しいです,その他,あいさつ
-120,Comment allez-vous?,お元気ですか,その他,あいさつ
-121,Je vais bien.,元気です,その他,あいさつ
-122,Comme ci comme ça.,まあまあです,その他,あいさつ
-123,Ça fait longtemps.,お久しぶりです,その他,あいさつ
-124,S’il vous plaît.,お願いします,その他,あいさつ
+0,un ami / une amie,友人,名詞,レベル１
+1,un prénom,名,名詞,レベル１
+2,elles / les / leur /elles,彼女ら,名詞,レベル１
+3,elle / la / lui / elle,彼女,名詞,レベル１
+4,un petit ami  / une petite amie,彼氏/彼女,名詞,レベル１
+5,leur / leur / leurs,彼らの、彼女らの,名詞,レベル１
+6,ils / les / leur / eux,彼ら,名詞,レベル１
+7,son / sa / ses,彼の、彼女の,名詞,レベル１
+8,il / le / lui / lui,彼,名詞,レベル１
+9,l'âge,年齢,名詞,レベル１
+10,un homme,男性,名詞,レベル１
+11,un anniversaire,誕生日,名詞,レベル１
+12,la date de naissance,生年月日,名詞,レベル１
+13,un sexe,性別,名詞,レベル１
+14,un nom,姓,名詞,レベル１
+15,mon / ma / mes,私の,名詞,レベル１
+16,nous,私たち,名詞,レベル１
+17,une femme,妻、女性,名詞,レベル１
+18,la nationalité,国籍,名詞,レベル１
+19,ton / ta / tes,君の,名詞,レベル１
+20,tu / te / toi,君,名詞,レベル１
+21,notre / notre / nos,我々の,名詞,レベル１
+22,une famille,家族,名詞,レベル１
+23,je / me / moi,わたし,名詞,レベル１
+24,le / la / les,その、いくつかの,名詞,レベル１
+25,ceci / celui-ci / celui-là,これ、それ、あれ,名詞,レベル１
+26,votre / votre / vos,あなたの、あなたたちの,名詞,レベル１
+27,vous / vous,あなた、あなたたち,名詞,レベル１
+28,bien,よく、上手に,副詞,レベル１
+29,très,とても,副詞,レベル１
+30,venir,来る,動詞,レベル１
+31,s'appeler,名前は〜だ,動詞,レベル１
+32,savoir,知る,動詞,レベル１
+33,avoir,持つ〜、がある,動詞,レベル１
+34,aller,行く、調子がよい,動詞,レベル１
+35,voir,見る、会う,動詞,レベル１
+36,être,である、存在する,動詞,レベル１
+37,mille un,1001,数・時,レベル１
+38,mille,1000,数・時,レベル１
+39,cent un,101,数・時,レベル１
+40,cent,100,数・時,レベル１
+41,quatre-vingt-dix-neuf,99,数・時,レベル１
+42,quatre-vingt-dix,90,数・時,レベル１
+43,quatre-vingt,80,数・時,レベル１
+44,soixante-dix,70,数・時,レベル１
+45,soixante,60,数・時,レベル１
+46,cinquante,50,数・時,レベル１
+47,quarante,40,数・時,レベル１
+48,trente,30,数・時,レベル１
+49,vingt-deux,22,数・時,レベル１
+50,vingt et un,21,数・時,レベル１
+51,vingt,20,数・時,レベル１
+52,dix-neuf,19,数・時,レベル１
+53,dix-huit,18,数・時,レベル１
+54,dix-sept,17,数・時,レベル１
+55,seize,16,数・時,レベル１
+56,quinze,15,数・時,レベル１
+57,quatorze,14,数・時,レベル１
+58,treize,13,数・時,レベル１
+59,douze,12,数・時,レベル１
+60,onze,11,数・時,レベル１
+61,dix,10,数・時,レベル１
+62,neuf,9,数・時,レベル１
+63,huit,8,数・時,レベル１
+64,sept,7,数・時,レベル１
+65,six,6,数・時,レベル１
+66,cinq,5,数・時,レベル１
+67,quatre,4,数・時,レベル１
+68,trois,3,数・時,レベル１
+69,deux,2,数・時,レベル１
+70,un,1,数・時,レベル１
+71,zero,0,数・時,レベル１
+72,bon / bonne,良い、美味しい,形容詞,レベル１
+73,content,満足している、幸せだ,形容詞,レベル１
+74,beau (bel) / belle,美しい,形容詞,レベル１
+75,désolé,申し訳ない、残念だ,形容詞,レベル１
+76,petit / petite,小さい,形容詞,レベル１
+77,délicieux / délicieuse,おいしい,形容詞,レベル１
+78,Ça va ?,大丈夫ですか,その他,レベル１
+79,Je vais bien.,元気です,その他,レベル１
+80,Ce n'est pas grave.,気にしないでください,その他,レベル１
+81,Salut.,やあ / またね,その他,レベル１
+82,A tout à l'heure.,またあとで,その他,レベル１
+83,Comme ci comme ça.,まあまあです,その他,レベル１
+84,Enchanté. / Enchantée.,はじめまして,その他,レベル１
+85,oui,はい,その他,レベル１
+86,Je vous en prie.,どういたしまして,その他,レベル１
+87,A bientôt.,ではまた,その他,レベル１
+88,Excusez-moi.,すみません,その他,レベル１
+89,Au revoir,さようなら,その他,レベル１
+90,Bonsoir.,こんばんは,その他,レベル１
+91,Pardon.,ごめんなさい,その他,レベル１
+92,Comment allez-vous?,お元気ですか,その他,レベル１
+93,Cela fait longtemps.,お久しぶりです,その他,レベル１
+94,S’il vous plaît.,お願いします,その他,レベル１
+95,Je suis ravi de vous voir. / Je suis ravie de vous voir.,お会いできて嬉しいです,その他,レベル１
+96,Bonne nuit.,おやすみなさい,その他,レベル１
+97,Bonjour.,おはよう,その他,レベル１
+98,non,いいえ,その他,レベル１
+99,Merci.,ありがとう,その他,レベル１
+100,l'hiver,冬,名詞,レベル２
+101,l'automne,秋,名詞,レベル２
+102,l'été,夏,名詞,レベル２
+103,le printemps,春,名詞,レベル２
+104,donc,だから,副詞,レベル２
+105,étudier,勉強する,動詞,レベル２
+106,travailler,働く、勉強する,動詞,レベル２
+107,préférer,好む,動詞,レベル２
+108,apprendre,学ぶ,動詞,レベル２
+109,aimer,愛する,動詞,レベル２
+110,comprendre,わかる、理解する、含む,動詞,レベル２
+111,devenir,なる,動詞,レベル２
+112,prendre,とる、乗る,動詞,レベル２
+113,pouvoir,できる,動詞,レベル２
+114,faire,する、つくる,動詞,レベル２
+115,rentrer,かえる,動詞,レベル２
+116,devoir,〜しなければならない,動詞,レベル２
+117,avant,前に[時間],前置詞,レベル２
+118,depuis ,以来,前置詞,レベル２
+119,à travers,を通って,前置詞,レベル２
+120,jusque,まで[時間/場所],前置詞,レベル２
+121,dans,の中に,前置詞,レベル２
+122,devant,の前で[場所],前置詞,レベル２
+123,sur,の上に,前置詞,レベル２
+124,derrière,の後ろで[場所],前置詞,レベル２
+125,pendant ,の間,前置詞,レベル２
+126,chez,のところ,前置詞,レベル２
+127,pour,のため,前置詞,レベル２
+128,vers,のころ,前置詞,レベル２
+129,de,の[所有],前置詞,レベル２
+130,contre,に対して,前置詞,レベル２
+131,par,によって,前置詞,レベル２
+132,à,において[位置],前置詞,レベル２
+133,sans,なしで,前置詞,レベル２
+134,avec,と一緒に,前置詞,レベル２
+135,après,あとで[時間],前置詞,レベル２
+136,sauf,〜以外,前置詞,レベル２
+137,entre,〜の間に[場所/時間],前置詞,レベル２
+138,sous,〜の下に,前置詞,レベル２
+139,l'année prochaine,来年,数・時,レベル２
+140,la semaine prochaine,来週,数・時,レベル２
+141,le mois prochain,来月,数・時,レベル２
+142,le soir,夕方,数・時,レベル２
+143,la nuit,夜,数・時,レベル２
+144,tous les ans,毎年,数・時,レベル２
+145,tous les jours,毎日,数・時,レベル２
+146,toutes les semaines,毎週,数・時,レベル２
+147,tous les mois,毎月,数・時,レベル２
+148,le matin,朝,数・時,レベル２
+149,le midi,昼,数・時,レベル２
+150,l'aube,早朝,数・時,レベル２
+151,la semaine dernière,先週,数・時,レベル２
+152,le mois dernier,先月,数・時,レベル２
+153,minuit,深夜,数・時,レベル２
+154,le week-end,週末,数・時,レベル２
+155,cette année,今年,数・時,レベル２
+156,cette semaine,今週,数・時,レベル２
+157,ce mois-ci,今月,数・時,レベル２
+158,un après-midi,午後,数・時,レベル２
+159,l'année dernière,去年,数・時,レベル２
+160,la fin du mois,月末,数・時,レベル２
+161,dimanche,日曜日,数・時,レベル２
+162,samedi,土曜日,数・時,レベル２
+163,vendredi,金曜日,数・時,レベル２
+164,jeudi,木曜日,数・時,レベル２
+165,mercredi,水曜日,数・時,レベル２
+166,mardi,火曜日,数・時,レベル２
+167,lundi,月曜日,数・時,レベル２
+168,après demain,明後日,数・時,レベル２
+169,demain,明日,数・時,レベル２
+170,avant-hier,おととい,数・時,レベル２
+171,hier,昨日,数・時,レベル２
+172,aujourd'hui,今日,数・時,レベル２
+173,le quatorze juillet,7月14日,数・時,レベル２
+174,le premier janvier,1月1日,数・時,レベル２
+175,décembre,12月,数・時,レベル２
+176,novembre,11月,数・時,レベル２
+177,octobre,10月,数・時,レベル２
+178,septembre,9月,数・時,レベル２
+179,août ,8月,数・時,レベル２
+180,juillet,7月,数・時,レベル２
+181,juin,6月,数・時,レベル２
+182,mai,5月,数・時,レベル２
+183,avril,4月,数・時,レベル２
+184,mars,3月,数・時,レベル２
+185,février,2月,数・時,レベル２
+186,janvier,1月,数・時,レベル２
+187,un milliard,10億,数・時,レベル２
+188,dix millions,1000万,数・時,レベル２
+189,un million,100万,数・時,レベル２
+190,cent mille,10万,数・時,レベル２
+191,dix mille,1万,数・時,レベル２
+192,froid / froide,冷たい,形容詞,レベル２
+193,chaud / chaude,熱い,形容詞,レベル２
+194,faible,弱い,形容詞,レベル２
+195,proche,近い,形容詞,レベル２
+196,fort / forte,強い,形容詞,レベル２
+197,facile,簡単な,形容詞,レベル２
+198,loin,遠い,形容詞,レベル２
+199,mignon,かわいい,形容詞,レベル２
+200,un beau-père,舅,名詞,レベル３
+201,un amoureux / une amoureuse,恋人,名詞,レベル３
+202,un voisin / une voisine,隣人,名詞,レベル３
+203,des parents,両親,名詞,レベル３
+204,un beau-fils,婿,名詞,レベル３
+205,une petite sœur,妹,名詞,レベル３
+206,une mère,母,名詞,レベル３
+207,un père,父,名詞,レベル３
+208,les époux,夫婦,名詞,レベル３
+209,un mari,夫,名詞,レベル３
+210,un petit frère,弟,名詞,レベル３
+211,une connaissance,知人,名詞,レベル３
+212,un petit-fils / une petite-fille,孫,名詞,レベル３
+213,un fils,息子,名詞,レベル３
+214,une grand-mère,祖母,名詞,レベル３
+215,un grand-père,祖父,名詞,レベル３
+216,un parent,親戚,名詞,レベル３
+217,un enfant / une enfant,子ども,名詞,レベル３
+218,des sceurs,姉妹,名詞,レベル３
+219,une grande sœur,姉,名詞,レベル３
+220,une belle-mère,姑,名詞,レベル３
+221,des frères,兄弟,名詞,レベル３
+222,un grand frère,兄,名詞,レベル３
+223,une belle-fille,嫁,名詞,レベル３
+224,une nièce,めい,名詞,レベル３
+225,une tante,おば,名詞,レベル３
+226,un oncle,おじ,名詞,レベル３
+227,un neveu,おい,名詞,レベル３
+228,un cousin / une cousine,いとこ,名詞,レベル３
+229,un une / des,ある、いくつかの,名詞,レベル３
+230,parler,話す,動詞,レベル３
+231,se reposer,休む,動詞,レベル３
+232,se lever,起きる,動詞,レベル３
+233,rentrer,帰る,動詞,レベル３
+234,sentir,感じる,動詞,レベル３
+235,se souvenir,覚えている、思い出す,動詞,レベル３
+236,ouvrir,開く,動詞,レベル３
+237,rencontrer,会う,動詞,レベル３
+238,chanter,歌う,動詞,レベル３
+239,centième,第100の,数・時,レベル３
+240,vingt et unième,第21の,数・時,レベル３
+241,neuvième,第9の,数・時,レベル３
+242,troixième,第3の,数・時,レベル３
+243,deuxième,第2の,数・時,レベル３
+244,premier / première,第1の,数・時,レベル３
+245,vingt et unième siècle,21世紀,数・時,レベル３
+246,clair,明晰な、明るい,形容詞,レベル３
+247,clair / claire,明るい、薄い,形容詞,レベル３
+248,triste,悲しい、寂しい,形容詞,レベル３
+249,mince,薄い、すらりとした,形容詞,レベル３
+250,foncé / foncée,濃い,形容詞,レベル３
+251,difficile,難しい,形容詞,レベル３
+252,long / longue,長い,形容詞,レベル３
+253,moyen / moyenne,中くらいの,形容詞,レベル３
+254,lent / lente,遅い,形容詞,レベル３
+255,court / courte,短い,形容詞,レベル３
+256,ennuyeux / ennuyeuse,退屈な、イライラする,形容詞,レベル３
+257,gros / grosse,太い、大きい,形容詞,レベル３
+258,vite,速い,形容詞,レベル３
+259,calme,静かな,形容詞,レベル３
+260,propre,清潔な,形容詞,レベル３
+261,neuf / neuve,新しい,形容詞,レベル３
+262,lourd / lourde,重い,形容詞,レベル３
+263,jeune,若い,形容詞,レベル３
+264,carré / carrée,四角い,形容詞,レベル３
+265,fin / fine,細い、薄い,形容詞,レベル３
+266,cher / chère,高い、たいせつな,形容詞,レベル３
+267,haut,高い,形容詞,レベル３
+268,spacieux / spacieuse,広い,形容詞,レベル３
+269,épais / épaisse,厚い,形容詞,レベル３
+270,dur / dure,固い,形容詞,レベル３
+271,ancien / ancienne,古い、昔の,形容詞,レベル３
+272,léger / légère,軽い,形容詞,レベル３
+273,étroit / étroite,狭い,形容詞,レベル３
+274,rond / ronde,丸い,形容詞,レベル３
+275,amusant,楽しい、おかしい,形容詞,レベル３
+276,bas / basse,下の、低い,形容詞,レベル３
+277,sale,汚い,形容詞,レベル３
+278,sombre,暗い,形容詞,レベル３
+279,bruyant / bruyante,うるさい,形容詞,レベル３
+280,rien,何も〜ない,その他,レベル３
+281,comme,のような,その他,レベル３
+282,puisque,なのだから,その他,レベル３
+283,de quoi,なにについて,その他,レベル３
+284,quoi,なに,その他,レベル３
+285,que,なに,その他,レベル３
+286,parce que,なぜならば,その他,レベル３
+287,pourquoi,なぜ,その他,レベル３
+288,quel,どんな,その他,レベル３
+289,lequel,どれ,その他,レベル３
+290,comment,どのように,その他,レベル３
+291,où,どこ,その他,レベル３
+292,personne,だれも〜ない,その他,レベル３
+293,avec qui,だれと,その他,レベル３
+294,qui,だれ,その他,レベル３
+295,et,そして,その他,レベル３
+296,tout,すべての,その他,レベル３
+297,mais,しかし,その他,レベル３
+298,quand,いつ,その他,レベル３
+299,combien,いくらの、いくつの,その他,レベル３
+300,une personne âgée,老人,名詞,レベル４
+301,un numéro de téléphone,電話番号,名詞,レベル４
+302,un adulte / une adulte,大人,名詞,レベル４
+303,un bébé,赤ちゃん,名詞,レベル４
+304,un garçon,少年,名詞,レベル４
+305,une fille,少女,名詞,レベル４
+306,une adresse,住所,名詞,レベル４
+307,un décalage horaire,時差,名詞,レベル４
+308,l'heure,時刻,名詞,レベル４
+309,une horloge,時計,名詞,レベル４
+310,le temps,時間,名詞,レベル４
+311,un étudiant / une étudiante,学生,名詞,レベル４
+312,un salarié / une salariée,会社員,名詞,レベル４
+313,tout le monde,みんな,名詞,レベル４
+314,Madame,ミセス,名詞,レベル４
+315,Monsieur,ミスター,名詞,レベル４
+316,Mademoiselle,ミス,名詞,レベル４
+317,longtemps,長い間,副詞,レベル４
+318,parfois,時々,副詞,レベル４
+319,souvent,よく、しばしば,副詞,レベル４
+320,rarement,まれに,副詞,レベル４
+321,de nouveau,ふたたび,副詞,レベル４
+322,parfois,ときおり,副詞,レベル４
+323,de temps en temps,たまに,副詞,レベル４
+324,beaucoup,たくさん,副詞,レベル４
+325,déjà,すでに,副詞,レベル４
+326,tout de suite,すぐに,副詞,レベル４
+327,souvent,しばしば,副詞,レベル４
+328,tout à l'heure,さっき,副詞,レベル４
+329,maintenant,いま,副詞,レベル４
+330,tous les ~ / toutes les ~,〜毎に,副詞,レベル４
+331,une fois sur~,〜回に1回,副詞,レベル４
+332,vouloir,欲しい、望む,動詞,レベル４
+333,oublier,忘れる,動詞,レベル４
+334,lire,読む,動詞,レベル４
+335,vivre,生きる,動詞,レベル４
+336,mourir,死ぬ,動詞,レベル４
+337,descendre,降りる,動詞,レベル４
+338,penser,考える、思う,動詞,レベル４
+339,réfléchir,考える,動詞,レベル４
+340,raconter,語る、話す,動詞,レベル４
+341,dire,言う,動詞,レベル４
+342,trouver,見出す、思う,動詞,レベル４
+343,regarder,見る,動詞,レベル４
+344,décider,決める,動詞,レベル４
+345,manquer,欠けている,動詞,レベル４
+346,connaître,経験する,動詞,レベル４
+347,répéter,繰り返す,動詞,レベル４
+348,tourner,曲がる、回る,動詞,レベル４
+349,plaire,気にいる,動詞,レベル４
+350,pleuvoir,雨が降る,動詞,レベル４
+351,cacher,隠す,動詞,レベル４
+352,boire,飲む,動詞,レベル４
+353,sembler,のように思える、に見える,動詞,レベル４
+354,monter,のぼる,動詞,レベル４
+355,rester,とどまる,動詞,レベル４
+356,le futur,未来,数・時,レベル４
+357,demi-journée,半日,数・時,レベル４
+358,une date,日付,数・時,レベル４
+359,dans le courant de la matinée,朝のうちに,数・時,レベル４
+360,à la fin du mois,下旬,数・時,レベル４
+361,au milieu du mois,中旬,数・時,レベル４
+362,au début du mois,上旬,数・時,レベル４
+363,dans le courant de la jounée,今日中に,数・時,レベル４
+364,le présent,現在,数・時,レベル４
+365,le passé,過去,数・時,レベル４
+366,toute la nuit,一晩中,数・時,レベル４
+367,toute la journée,一日中,数・時,レベル４
+368,trois quarts,4分の3,数・時,レベル４
+369,un quart,4分の1,数・時,レベル４
+370,un tiers,3分の1,数・時,レベル４
+371,triple,3倍,数・時,レベル４
+372,trois fois,3回,数・時,レベル４
+373,un demi,2分の1,数・時,レベル４
+374,double,2倍,数・時,レベル４
+375,deux fois,2回,数・時,レベル４
+376,une fois,1回,数・時,レベル４
+377,moins le quart,15分前,数・時,レベル４
+378,dans quinze heures,15時間後,数・時,レベル４
+379,minute / minutes,〜分/〜分間,数・時,レベル４
+380,seconde / secondes,〜秒/〜秒間,数・時,レベル４
+381,an / ans,〜年/〜年間,数・時,レベル４
+382,il y a ~ jours,〜日前,数・時,レベル４
+383,dans ~ jours,〜日後,数・時,レベル４
+384,jour / jours,〜日/〜日間,数・時,レベル４
+385,semaine / semaines,〜週/〜週間,数・時,レベル４
+386,heure et demi / heures et demi,〜時半,数・時,レベル４
+387,jusqu'à ~ heures,〜時まで,数・時,レベル４
+388,à partir de ~ heures,〜時から,数・時,レベル４
+389,heure et quart / heures et quart,〜時15分,数・時,レベル４
+390,heure / heures,〜時/〜時間,数・時,レベル４
+391,mois,〜月/ヶ月間,数・時,レベル４
+392,zéro virgule sept,0.7,数・時,レベル４
+393,joli,綺麗な,形容詞,レベル４
+394,fatigué,疲れた,形容詞,レベル４
+395,célibataire,独身の,形容詞,レベル４
+396,masculin,男性の,形容詞,レベル４
+397,grand / grande,大きい,形容詞,レベル４
+398,féminin,女性の,形容詞,レベル４
+399,mauvais / mauvaise,悪い,形容詞,レベル４
+400,debout,立って,副詞,レベル５
+401,tard,遅く,副詞,レベル５
+402,tôt,早く,副詞,レベル５
+403,quelques fois,数回,副詞,レベル５
+404,ensuite,次に,副詞,レベル５
+405,tout d'un coup,急に,副詞,レベル５
+406,encore,なお、まだ,副詞,レベル５
+407,enfin,ついに、さいごに,副詞,レベル５
+408,bientôt,ただちに,副詞,レベル５
+409,toujours,いつも、相変わらず,副詞,レベル５
+410,plus tard,あとで,副詞,レベル５
+411,dormir,眠る,動詞,レベル５
+412,marcher,歩く,動詞,レベル５
+413,rendre,返す,動詞,レベル５
+414,changer,変える,動詞,レベル５
+415,fermer,閉じる,動詞,レベル５
+416,entendre,聞く、聞こえる,動詞,レベル５
+417,écouter,聞く,動詞,レベル５
+418,payer,払う,動詞,レベル５
+419,s'habiller,服を着る,動詞,レベル５
+420,falloir,必要とする,動詞,レベル５
+421,se fatiguer,疲れる,動詞,レベル５
+422,vendre,売る,動詞,レベル５
+423,acheter,買う,動詞,レベル５
+424,bouger,動かす,動詞,レベル５
+425,répondre,答える,動詞,レベル５
+426,allumer,点ける,動詞,レベル５
+427,passer,通過する、渡す,動詞,レベル５
+428,arriver,着く、到達する,動詞,レベル５
+429,mettre,置く、入れる,動詞,レベル５
+430,laisser,置いておく,動詞,レベル５
+431,connaître,知る,動詞,レベル５
+432,chercher,探す,動詞,レベル５
+433,louer,貸す,動詞,レベル５
+434,attendre,待つ,動詞,レベル５
+435,envoyer,送る,動詞,レベル５
+436,courir,走る,動詞,レベル５
+437,choisir,選ぶ,動詞,レベル５
+438,couper,切る,動詞,レベル５
+439,naître,生まれる,動詞,レベル５
+440,compter,数える、つもりだ,動詞,レベル５
+441,manger,食べる,動詞,レベル５
+442,éteindre,消す,動詞,レベル５
+443,se coucher,床につく,動詞,レベル５
+444,aider,助ける,動詞,レベル５
+445,écrire,書く,動詞,レベル５
+446,partir,出発する,動詞,レベル５
+447,rencontrer,出会う,動詞,レベル５
+448,sortir,出る、出す,動詞,レベル５
+449,habiter,住む,動詞,レベル５
+450,finir,終わる,動詞,レベル５
+451,recevoir,受け取る,動詞,レベル５
+452,recevoir,受ける,動詞,レベル５
+453,gagner,手に入れる、勝つ,動詞,レベル５
+454,emprunter,借りる,動詞,レベル５
+455,perdre,失う,動詞,レベル５
+456,montrer,示す,動詞,レベル５
+457,tenir,持つ、支える,動詞,レベル５
+458,porter,持つ,動詞,レベル５
+459,essayer,試す,動詞,レベル５
+460,arrêter,止める、やめる,動詞,レベル５
+461,croire,思う、信じる,動詞,レベル５
+462,se souvenir,思い出す,動詞,レベル５
+463,commencer,始める,動詞,レベル５
+464,utiliser,使う,動詞,レベル５
+465,fabriquer,作る,動詞,レベル５
+466,s'asseoir,座る,動詞,レベル５
+467,tirer,引く,動詞,レベル５
+468,un anniversaire de la morte,命日,数・時,レベル５
+469,le jour de l'an,元日,数・時,レベル５
+470,la veille du jour de l’an,大晦日,数・時,レベル５
+471,la fin de l'année,年末,数・時,レベル５
+472,le jour férié,祝祭日,数・時,レベル５
+473,le jour de congé,休日,数・時,レベル５
+474,la semaine,平日,数・時,レベル５
+475,la veille de Noël,クリスマスイブ,数・時,レベル５
+476,le Noël,クリスマス,数・時,レベル５
+477,riche,裕福な,形容詞,レベル５
+478,seul,唯一の,形容詞,レベル５
+479,gratuit,無料の,形容詞,レベル５
+480,vrai,本当の,形容詞,レベル５
+481,occupé,忙しい,形容詞,レベル５
+482,fermé,閉じた,形容詞,レベル５
+483,pluriel plurielle,複数の、多層的な,形容詞,レベル５
+484,normal / normale,普通の,形容詞,レベル５
+485,pauvre,貧しい、かわいそうな,形容詞,レベル５
+486,nécessaire,必要な,形容詞,レベル５
+487,demi,半分の,形容詞,レベル５
+488,timide,内気な,形容詞,レベル５
+489,spécial / spéciale,特別の,形容詞,レベル５
+490,étranger / étrangère,外国の,形容詞,レベル５
+491,ouvert,開いている,形容詞,レベル５
+492,possible,可能な,形容詞,レベル５
+493,différent,異なる、さまざまの,形容詞,レベル５
+494,méchant,意地悪な,形容詞,レベル５
+495,meilleur,よりよい,形容詞,レベル５
+496,frais / fraîche,ひんやりとした、新鮮な,形容詞,レベル５
+497,important,たいせつな,形容詞,レベル５
+498,excellent,すぐれた,形容詞,レベル５
+499,plein,いっぱいの,形容詞,レベル５
+500,un amour,恋愛,名詞,レベル６
+501,un curriculum vitae,履歴書,名詞,レベル６
+502,sans profession,無職,名詞,レベル６
+503,célibataire,未婚,名詞,レベル６
+504,numéro,番号,名詞,レベル６
+505,un vendeur / une vendeuse,店員,名詞,レベル６
+506,le poids,体重,名詞,レベル６
+507,des jumeaux / des jumelles,双子,名詞,レベル６
+508,une adolescence,青春,名詞,レベル６
+509,chiffre,数,名詞,レベル６
+510,une vie,人生,名詞,レベル６
+511,une carte d'identité,身分証明書,名詞,レベル６
+512,la taille,身長,名詞,レベル６
+513,un artisan,職人,名詞,レベル６
+514,une profession,職業,名詞,レベル６
+515,un lieu de naissance,出身地,名詞,レベル６
+516,un fiancé / une fiancée,婚約者,名詞,レベル６
+517,une matinée,午前,名詞,レベル６
+518,la saison,季節,名詞,レベル６
+519,marié / mariée,既婚,名詞,レベル６
+520,une relation,関係,名詞,レベル６
+521,un seul enfant / une seule enfant,一人っ子,名詞,レベル６
+522,un musicien / une musicienne,ミュージシャン,名詞,レベル６
+523,un passeport,パスポート,名詞,レベル６
+524,un dessinateur / une dessinatrice,デザイナー,名詞,レベル６
+525,un calendrier,カレンダー,名詞,レベル６
+526,un guide / une guide,ガイド,名詞,レベル６
+527,un ingénieur,エンジニア,名詞,レベル６
+528,un artiste / une artiste,アーティスト,名詞,レベル６
+529,des coordonnées,連絡先,名詞,レベル６
+530,le Japon,日本,名詞,レベル６
+531,la Chine,中国,名詞,レベル６
+532,la Corée du Sud,韓国,名詞,レベル６
+533,l’Union européenne,欧州連合,名詞,レベル６
+534,la Russie,ロシア,名詞,レベル６
+535,la Belgique,ベルギー,名詞,レベル６
+536,la France,フランス,名詞,レベル６
+537,la Turquie,トルコ,名詞,レベル６
+538,l'Allemagne,ドイツ,名詞,レベル６
+539,l'Espagne,スペイン,名詞,レベル６
+540,la Suisse,スイス,名詞,レベル６
+541,le Canada,カナダ,名詞,レベル６
+542,l'Australie,オーストラリア,名詞,レベル６
+543,l’Inde,インド,名詞,レベル６
+544,L’Italie,イタリア,名詞,レベル６
+545,l'Angleterre,イギリス,名詞,レベル６
+546,les États-Unis,アメリカ,名詞,レベル６
+547,simplement,単純に、簡素に,副詞,レベル６
+548,peu,少し、あまり〜でない,副詞,レベル６
+549,assez,十分に,副詞,レベル６
+550,jamais,決して〜ない,副詞,レベル６
+551,près,近くに,副詞,レベル６
+552,ensemble,一緒に,副詞,レベル６
+553,plus,より多く,副詞,レベル６
+554,moins,より少なく,副詞,レベル６
+555,mieux,よりよく,副詞,レベル６
+556,aussi,もまた,副詞,レベル６
+557,plutôt,むしろ,副詞,レベル６
+558,presque,ほとんど,副詞,レベル６
+559,juste,ちょうど、まさに,副詞,レベル６
+560,peut-être,たぶん,副詞,レベル６
+561,seulement,ただ〜だけ,副詞,レベル６
+562,tant,そんなに,副詞,レベル６
+563,alors,それで、じゃあ,副詞,レベル６
+564,pourtant,しかしながら,副詞,レベル６
+565,cependant,しかしながら,副詞,レベル６
+566,ici,ここ,副詞,レベル６
+567,ainsi,かくして,副詞,レベル６
+568,environ,およそ,副詞,レベル６
+569,partout,いたるところに,副詞,レベル６
+570,trop,あまりに,副詞,レベル６
+571,se lever,立つ,動詞,レベル６
+572,tomber,落ちる,動詞,レベル６
+573,demander,頼む、尋ねる,動詞,レベル６
+574,danser,踊る,動詞,レベル６
+575,donner,与える,動詞,レベル６
+576,jouer,遊ぶ、演奏する,動詞,レベル６
+577,promettre,約束する,動詞,レベル６
+578,revenir,戻る,動詞,レベル６
+579,visiter,訪れる,動詞,レベル６
+580,même,同じ、〜でさえも,形容詞,レベル６
+581,singulier / singulière,単数の、奇妙な,形容詞,レベル６
+582,gentil / gentille,親切な,形容詞,レベル６
+583,nouveau (nouvel) / nouvelle,新しい,形容詞,レベル６
+584,prêt,準備できた,形容詞,レベル６
+585,mou (mol) / molle,柔らかい,形容詞,レベル６
+586,humide,湿った,形容詞,レベル６
+587,libre,自由な,形容詞,レベル６
+588,prochain,次の,形容詞,レベル６
+589,dernier / dernière,最後の、この前の,形容詞,レベル６
+590,heureux / heureuse,幸せな,形容詞,レベル６
+591,faux fausse,誤った、うその,形容詞,レベル６
+592,vieux (vieil) / vieille,古い、歳をとった,形容詞,レベル６
+593,intelligent,賢い,形容詞,レベル６
+594,magnifique,見事な、すばらしい,形容詞,レベル６
+595,marié,結婚している,形容詞,レベル６
+596,interdit,禁止されている,形容詞,レベル６
+597,intéressant,興味深い,形容詞,レベル６
+598,doux / douce,甘い、ここちよい,形容詞,レベル６
+599,sympathique,感じのいい,形容詞,レベル６

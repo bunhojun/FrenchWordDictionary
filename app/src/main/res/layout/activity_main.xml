@@ -67,14 +67,14 @@
         android:textSize="23dp"/>
 
     <TextView
-        android:id="@+id/categoryText"
+        android:id="@+id/levelText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="15dp"
         android:layout_centerHorizontal="true"
         android:fontFamily="sans-serif-smallcaps"
         android:layout_above="@+id/horizontalScrollView"
-        android:text="catégorie"
+        android:text="niveau"
         />
 
     <HorizontalScrollView
@@ -93,53 +93,60 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/lifeCategory"
+                android:id="@+id/level1"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginLeft="5dp"
-                android:text="生活"
+                android:text="レベル１"
                 android:background="@drawable/button1" />
 
             <Button
-                android:id="@+id/greetingCategory"
+                android:id="@+id/level2"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginLeft="5dp"
-                android:text="あいさつ"
+                android:text="レベル２"
                 android:background="@drawable/button1" />
 
             <Button
-                android:id="@+id/basicCategory"
+                android:id="@+id/level3"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginLeft="5dp"
-                android:text="基本単語"
+                android:text="レベル３"
                 android:background="@drawable/button1" />
 
             <Button
-                android:id="@+id/numberCategory"
+                android:id="@+id/level4"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginLeft="5dp"
-                android:text="数量"
+                android:text="レベル４"
                 android:background="@drawable/button1" />
 
             <Button
-                android:id="@+id/travelCategory"
+                android:id="@+id/level5"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:text="トラベル"
+                android:text="レベル５"
                 android:layout_marginLeft="5dp"
                 android:background="@drawable/button1"/>
 
+            <Button
+                android:id="@+id/level6"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="5dp"
+                android:text="レベル６"
+                android:background="@drawable/button1" />
 
             <Button
-                android:id="@+id/otherCategory"
+                android:id="@+id/yourWords"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:text="その他"
+                android:text="あなたの言葉"
                 android:background="@drawable/button1" />
 
         </LinearLayout>
@@ -210,6 +217,14 @@
                 android:layout_marginLeft="5dp"
                 android:background="@drawable/button1"
                 android:text="前置詞" />
+
+            <Button
+                android:id="@+id/numberButton"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/button1"
+                android:text="数・時" />
 
             <Button
                 android:id="@+id/otherButton"

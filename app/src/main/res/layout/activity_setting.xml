@@ -18,19 +18,37 @@
         android:text="テストをランダム形式にする"/>
 
     <Switch
-        android:id="@+id/reverseSwitch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:switchPadding="130dp"
-        android:text="単語名と意味の表示を交換"/>
-
-    <Switch
         android:id="@+id/sortWrongSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:switchPadding="130dp"
-        android:text="不正解の単語のみをテストする"/>
+        android:text="不正解と未回答の単語のみをテストする"/>
+
+    <Switch
+        android:id="@+id/reverseSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:switchPadding="130dp"
+        android:text="テスト単語と単語カードの単語名と意味の表示を交換"/>
+
+    <Switch
+        android:id="@+id/autoPlaySwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:switchPadding="130dp"
+        android:text="テスト単語と単語カードの発音を自動的に再生"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/resetButton"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/button1"
+        android:text="正解・不正解をリセット"
+        />
 
 </LinearLayout>

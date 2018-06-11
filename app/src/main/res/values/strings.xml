@@ -1,13 +1,5 @@
 <resources>
     <string name="app_name">FrenchWordDictionary</string>
-    <string-array name="categoryItem">
-        <item>--カテゴリ--</item>
-        <item>生活</item>
-        <item>あいさつ</item>
-        <item>基本単語</item>
-        <item>数量</item>
-        <item>その他</item>
-    </string-array>
     <string-array name="partOfSpeechItem">
         <item>--品詞--</item>
         <item>名詞</item>
@@ -15,6 +7,7 @@
         <item>形容詞</item>
         <item>副詞</item>
         <item>前置詞</item>
+        <item>数・時</item>
         <item>その他</item>
     </string-array>
 </resources>

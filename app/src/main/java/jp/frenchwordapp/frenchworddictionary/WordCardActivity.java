@@ -24,19 +24,17 @@ import io.realm.Realm;
 public class WordCardActivity extends AppCompatActivity implements View.OnClickListener, TextToSpeech.OnInitListener {
 
     private Realm mRealm;
-
     Button mConcealButton, mMeaningButton;
     ImageButton mHearingButton, mNextButton, mBackButton;
-    TextView mWordText, mCategoryText, mPartOfSpeechText;
+    TextView mWordText, mLevelText, mPartOfSpeechText;
 
     boolean isCorrect, isWrong;
-
 
     private TextToSpeech engine;
     private Word mWordData, mNextWordData, mPreviousWordData; //don't edit here
     private EditedData mEditedData;
     private int mWordId;
-    private String mWord, mCategoryIntent, mCategory, mPartOfSpeechIntent, mPartOfSpeech, mMeaning;
+    private String mWord, mLevelIntent, mLevel, mPartOfSpeechIntent, mPartOfSpeech, mMeaning;
     SharedPreferences mSetting;
     private Boolean mIsReverse, mIsAutoPlay;
 
@@ -71,17 +69,17 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
         mNextButton.setVisibility(View.VISIBLE);
         mBackButton.setVisibility(View.VISIBLE);
         mWordText = findViewById(R.id.word);
-        mCategoryText = findViewById(R.id.category);
+        mLevelText = findViewById(R.id.level);
         mPartOfSpeechText = findViewById(R.id.partOfSpeech);
 
 
         //Intentデータ受け取り
         Intent intent = getIntent();
         mWordId = intent.getIntExtra("EXTRA_WORD", 0); //id of the first word. if 1d = 0, from menu button
-        mCategoryIntent = intent.getStringExtra("CATEGORY");
+        mLevelIntent = intent.getStringExtra("LEVEL");
         mPartOfSpeechIntent = intent.getStringExtra("HINSHI");
-        if (mCategoryIntent != null) {
-            mCategory = mCategoryIntent;
+        if (mLevelIntent != null) {
+            mLevel = mLevelIntent;
         } else if (mPartOfSpeechIntent != null) {
             mPartOfSpeech = mPartOfSpeechIntent;
         }
@@ -102,11 +100,10 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
             mWordText.setText(mWord);
             mMeaningButton.setText(mMeaning);
         }
-        String category = mWordData.getCategory();
-        mCategoryText.setText(category);
+        String level = mWordData.getLevel();
+        mLevelText.setText(level);
         String partOfSpeech = mWordData.getPartOfSpeech();
         mPartOfSpeechText.setText(partOfSpeech);
-
 
         //check button setting
         if (mEditedData == null) {
@@ -126,9 +123,14 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
         }
 
         // set next and previous buttons invisible here if the next or previous words don't exist
-        if (mCategoryIntent != null) {
-            mNextWordData = mRealm.where(Word.class).equalTo("category", mCategory).lessThan("id", mWordId).findFirst(); //前の言葉のデータを取得
-            mPreviousWordData = mRealm.where(Word.class).equalTo("category", mCategory).greaterThan("id", mWordId).findFirst();  //次の言葉のデータを取得
+        if (mLevelIntent != null) {
+            mNextWordData = mRealm.where(Word.class)
+                    .equalTo("level", mLevel)
+                    .lessThan("id", mWordId)
+                    .findFirst(); //前の言葉のデータを取得
+            mPreviousWordData = mRealm.where(Word.class)
+                    .equalTo("level", mLevel)
+                    .greaterThan("id", mWordId).findFirst();  //次の言葉のデータを取得
             if (mNextWordData == null) {
                 mNextButton.setVisibility(View.GONE);
             }
@@ -136,8 +138,12 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
                 mBackButton.setVisibility(View.GONE);
             }
         } else if (mPartOfSpeechIntent != null) {
-            mPreviousWordData = mRealm.where(Word.class).equalTo("partOfSpeech", mPartOfSpeech).greaterThan("id", mWordId).findFirst(); //次の言葉のデータを取得
-            mNextWordData = mRealm.where(Word.class).equalTo("partOfSpeech", mPartOfSpeech).lessThan("id", mWordId).findFirst(); //前の言葉
+            mPreviousWordData = mRealm.where(Word.class)
+                    .equalTo("partOfSpeech", mPartOfSpeech)
+                    .greaterThan("id", mWordId).findFirst(); //次の言葉のデータを取得
+            mNextWordData = mRealm.where(Word.class)
+                    .equalTo("partOfSpeech", mPartOfSpeech)
+                    .lessThan("id", mWordId).findFirst(); //前の言葉
             if (mNextWordData == null) {
                 mNextButton.setVisibility(View.GONE);
             }
@@ -145,12 +151,13 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
                 mBackButton.setVisibility(View.GONE);
             }
         } else {
-            mPreviousWordData = mRealm.where(Word.class).greaterThan("id", mWordId).findFirst(); //次の言葉のデータを取得
-            mNextWordData = mRealm.where(Word.class).lessThan("id", mWordId).findFirst(); //前の言葉
+            mPreviousWordData = mRealm.where(Word.class)
+                    .greaterThan("id", mWordId).findFirst(); //次の言葉のデータを取得
+            mNextWordData = mRealm.where(Word.class)
+                    .lessThan("id", mWordId).findFirst(); //前の言葉
             if (mNextWordData == null) {
                 mNextButton.setVisibility(View.GONE);
-            }
-            if (mPreviousWordData == null) {
+            } else if (mPreviousWordData == null) {
                 mBackButton.setVisibility(View.GONE);
             }
         }
@@ -286,16 +293,16 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
 
     private void setNextWord() {
         //次に表示される単語情報
-        if (mCategoryIntent != null) { //カテゴリーボタンを押したときの変遷の場合
+        if (mLevelIntent != null) { //カテゴリーボタンを押したときの変遷の場合
             mWordData = mRealm.where(Word.class)
-                    .equalTo("category", mCategory)
+                    .equalTo("level", mLevel)
                     .lessThan("id", mWordId)
                     .findAll()
                     .last();
             mWordId = mWordData.getId();
-            mCategory = mWordData.getCategory();
+            mLevel = mWordData.getLevel();
             mNextWordData = mRealm.where(Word.class)
-                    .equalTo("category", mCategory)
+                    .equalTo("level", mLevel)
                     .lessThan("id", mWordId)
                     .findFirst();
         } else if (mPartOfSpeechIntent != null) { //品詞ボタンのときの変遷の場合
@@ -324,7 +331,7 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
         mWord = mWordData.getWord();
         mMeaning = mWordData.getMeaning();
         mPartOfSpeech = mWordData.getPartOfSpeech();
-        mCategory = mWordData.getCategory();
+        mLevel = mWordData.getLevel();
 
         //set text
         if (mIsReverse) {
@@ -334,21 +341,21 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
             mWordText.setText(mWord);
             mMeaningButton.setText(mMeaning);
         }
-        mCategoryText.setText(mCategory);
+        mLevelText.setText(mLevel);
         mPartOfSpeechText.setText(mPartOfSpeech);
     }
 
     private void setPreviousWord() {
         //前に表示される単語情報
-        if (mCategoryIntent != null) {
+        if (mLevelIntent != null) {
             mWordData = mRealm.where(Word.class)
-                    .equalTo("category", mCategory)
+                    .equalTo("level", mLevel)
                     .greaterThan("id", mWordId)
                     .findFirst();  //前の言葉のデータを取得
             mWordId = mWordData.getId();
-            mCategory = mWordData.getCategory();
+            mLevel = mWordData.getLevel();
             mPreviousWordData = mRealm.where(Word.class)
-                    .equalTo("category", mCategory)
+                    .equalTo("level", mLevel)
                     .greaterThan("id", mWordId)
                     .findFirst();
             mWord = mWordData.getWord();
@@ -362,13 +369,13 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
             mWordId = mWordData.getId();
             mPartOfSpeech = mWordData.getPartOfSpeech();
             mPreviousWordData = mRealm.where(Word.class)
-                    .equalTo("partOfSpeech", mCategory)
+                    .equalTo("partOfSpeech", mPartOfSpeech)
                     .greaterThan("id", mWordId)
                     .findFirst();
 
             mWord = mWordData.getWord();
             mMeaning = mWordData.getMeaning();
-            mCategory = mWordData.getCategory();
+            mLevel = mWordData.getLevel();
 
         } else {
 
@@ -381,7 +388,7 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
                     .findFirst();
             mWord = mWordData.getWord();
             mMeaning = mWordData.getMeaning();
-            mCategory = mWordData.getCategory();
+            mLevel = mWordData.getLevel();
             mPartOfSpeech = mWordData.getPartOfSpeech();
         }
 
@@ -393,7 +400,7 @@ public class WordCardActivity extends AppCompatActivity implements View.OnClickL
             mWordText.setText(mWord);
             mMeaningButton.setText(mMeaning);
         }
-        mCategoryText.setText(mCategory);
+        mLevelText.setText(mLevel);
         mPartOfSpeechText.setText(mPartOfSpeech);
     }
 

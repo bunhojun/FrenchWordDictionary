@@ -2,6 +2,7 @@ package jp.frenchwordapp.frenchworddictionary;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.List;
+
+import io.realm.Realm;
 
 public class WordListAdapter extends ArrayAdapter<Word> {
     private List<Word> mWordList;
@@ -40,17 +43,34 @@ public class WordListAdapter extends ArrayAdapter<Word> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
-
         SharedPreferences setting = getContext().getSharedPreferences("setting", Context.MODE_PRIVATE);
         Boolean isReverse = setting.getBoolean("reverse", false);
 
+        EditedData editedData;
+        Realm realm = Realm.getDefaultInstance();
 
         if (convertView == null) {
             convertView = mLayoutInflater.inflate(android.R.layout.simple_list_item_1, null);
         }
 
         TextView textView1 = convertView.findViewById(android.R.id.text1);
+        editedData = realm.where(EditedData.class)
+                .equalTo("id", mWordList.get(position).getId())
+                .findFirst();
+        boolean isCorrect = false;
+        boolean isWrong = false;
+        if(editedData!=null){
+            isCorrect = editedData.isCorrect();
+            isWrong = editedData.isWrong();
+        }
+
+        if (isCorrect) {
+            textView1.setTextColor(Color.parseColor("#e103c6a9"));
+        } else if (isWrong) {
+            textView1.setTextColor(Color.parseColor("#dcf92d2d"));
+        } else{
+            textView1.setTextColor(Color.parseColor("#020202"));
+        }
 
         if(isReverse){
             textView1.setText(mWordList.get(position).getMeaning());
@@ -59,6 +79,4 @@ public class WordListAdapter extends ArrayAdapter<Word> {
         }
         return convertView;
     }
-
-
 }

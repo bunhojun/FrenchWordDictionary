@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Realm mRealm;
 
-    Button mNounButton, mVerbButton, mAdjectiveButton, mAdverbButton, mPrepositionButton,
-    mOtherButton, mLifeCategoryButton, mGreetingCategoryButton, mBasicButton, mNumberButton, mTravelCateGory, mOtherCategory;
+    Button mNounButton, mVerbButton, mAdjectiveButton, mAdverbButton, mPrepositionButton, mNumberButton,
+    mOtherButton, mLevel1Button, mLevel2Button, mLevel3Button, mLevel4Button, mLevel5Button, mLevel6Button, mYourWordsButton;
 
     private Intent mListIntent; //メンバ変数にしておく
 
@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView textView1 = findViewById(R.id.titleText4);
         Typeface typeface1 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
         textView1.setTypeface(typeface1);
-
 
         TextView textView2 = findViewById(R.id.titleText5);
         Typeface typeface2 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
@@ -75,34 +74,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mPrepositionButton.setOnClickListener(this);
         Typeface typeface8 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
         mPrepositionButton.setTypeface(typeface8);
+        mNumberButton = findViewById(R.id.numberButton);
+        mNumberButton.setOnClickListener(this);
+        Typeface typeface17 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
+        mNumberButton.setTypeface(typeface17);
         mOtherButton = findViewById(R.id.otherButton);
         mOtherButton.setOnClickListener(this);
         Typeface typeface9 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
         mOtherButton.setTypeface(typeface9);
-        mLifeCategoryButton = findViewById(R.id.lifeCategory);
-        mLifeCategoryButton.setOnClickListener(this);
+        mLevel1Button = findViewById(R.id.level1);
+        mLevel1Button.setOnClickListener(this);
         Typeface typeface10 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
-        mLifeCategoryButton.setTypeface(typeface10);
-        mGreetingCategoryButton = findViewById(R.id.greetingCategory);
-        mGreetingCategoryButton.setOnClickListener(this);
+        mLevel1Button.setTypeface(typeface10);
+        mLevel2Button = findViewById(R.id.level2);
+        mLevel2Button.setOnClickListener(this);
         Typeface typeface11 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
-        mGreetingCategoryButton.setTypeface(typeface11);
-        mBasicButton = findViewById(R.id.basicCategory);
-        mBasicButton.setOnClickListener(this);
+        mLevel2Button.setTypeface(typeface11);
+        mLevel3Button = findViewById(R.id.level3);
+        mLevel3Button.setOnClickListener(this);
         Typeface typeface12 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
-        mBasicButton.setTypeface(typeface12);
-        mNumberButton = findViewById(R.id.numberCategory);
-        mNumberButton.setOnClickListener(this);
+        mLevel3Button.setTypeface(typeface12);
+        mLevel4Button = findViewById(R.id.level4);
+        mLevel4Button.setOnClickListener(this);
         Typeface typeface13 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
-        mNumberButton.setTypeface(typeface13);
-        mOtherCategory = findViewById(R.id.otherCategory);
-        mOtherCategory.setOnClickListener(this);
+        mLevel4Button.setTypeface(typeface13);
+        mLevel5Button = findViewById(R.id.level5);
+        mLevel5Button.setOnClickListener(this);
         Typeface typeface14 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
-        mOtherCategory.setTypeface(typeface14);
-        mTravelCateGory = findViewById(R.id.travelCategory);
-        mTravelCateGory.setOnClickListener(this);
+        mLevel5Button.setTypeface(typeface14);
+        mLevel6Button = findViewById(R.id.level6);
+        mLevel6Button.setOnClickListener(this);
         Typeface typeface15 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
-        mTravelCateGory.setTypeface(typeface15);
+        mLevel6Button.setTypeface(typeface15);
+        mYourWordsButton = findViewById(R.id.yourWords);
+        mYourWordsButton.setOnClickListener(this);
+        Typeface typeface16 = Typeface.createFromAsset(MainActivity.this.getAssets(),"NagomiGokubosoGothic-ExtraLight.otf");
+        mYourWordsButton.setTypeface(typeface16);
     }
 
     @Override
@@ -134,35 +141,51 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mListIntent.putExtra("PART OF SPEECH", "前置詞");
                 startActivity(mListIntent);
                 break;
+            case R.id.numberButton:
+                mListIntent = new Intent(MainActivity.this, WordListActivity.class); //must initialise intent here
+                mListIntent.putExtra("PART OF SPEECH", "数・時");
+                startActivity(mListIntent);
+                break;
             case R.id.otherButton:
                 mListIntent = new Intent(MainActivity.this, WordListActivity.class);
                 mListIntent.putExtra("PART OF SPEECH", "その他");
                 startActivity(mListIntent);
                 break;
+
                 //category
-            case R.id.lifeCategory:
+            case R.id.level1:
                 mListIntent = new Intent(MainActivity.this, WordListActivity.class);
-                mListIntent.putExtra("CATEGORY", "生活");
+                mListIntent.putExtra("LEVEL", "レベル１");
                 startActivity(mListIntent);
                 break;
-            case R.id.greetingCategory:
+            case R.id.level2:
                 mListIntent = new Intent(MainActivity.this, WordListActivity.class);
-                mListIntent.putExtra("CATEGORY", "あいさつ");
+                mListIntent.putExtra("LEVEL", "レベル２");
                 startActivity(mListIntent);
                 break;
-            case R.id.basicCategory:
+            case R.id.level3:
                 mListIntent = new Intent(MainActivity.this, WordListActivity.class);
-                mListIntent.putExtra("CATEGORY", "基本単語");
+                mListIntent.putExtra("LEVEL", "レベル３");
                 startActivity(mListIntent);
                 break;
-            case R.id.numberCategory:
+            case R.id.level4:
                 mListIntent = new Intent(MainActivity.this, WordListActivity.class);
-                mListIntent.putExtra("CATEGORY", "数量");
+                mListIntent.putExtra("LEVEL", "レベル４");
                 startActivity(mListIntent);
                 break;
-            case R.id.otherCategory:
+            case R.id.level5:
                 mListIntent = new Intent(MainActivity.this, WordListActivity.class);
-                mListIntent.putExtra("CATEGORY", "その他");
+                mListIntent.putExtra("LEVEL", "レベル５");
+                startActivity(mListIntent);
+                break;
+            case R.id.level6:
+                mListIntent = new Intent(MainActivity.this, WordListActivity.class);
+                mListIntent.putExtra("LEVEL", "レベル６");
+                startActivity(mListIntent);
+                break;
+            case R.id.yourWords:
+                mListIntent = new Intent(MainActivity.this, WordListActivity.class);
+                mListIntent.putExtra("LEVEL", "あなたの言葉");
                 startActivity(mListIntent);
                 break;
         }
@@ -220,7 +243,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 data.setWord(RowData[1]);
                 data.setMeaning(RowData[2]);
                 data.setPartOfSpeech(RowData[3]);
-                data.setCategory(RowData[4]);
+                data.setLevel(RowData[4]);
 
                 mRealm.beginTransaction();
                 mRealm.copyToRealmOrUpdate(data);

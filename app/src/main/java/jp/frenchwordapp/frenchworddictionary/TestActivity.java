@@ -25,10 +25,10 @@ import io.realm.Realm;
 
 public class TestActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
 
-    String categoryIntent, partOfSpeechIntent;
+    String levelIntent, partOfSpeechIntent;
     Word wordData;
     EditedData editedData;
-    String word, category, partOfSpeech, meaning;
+    String word, level, partOfSpeech, meaning;
     int wordId;
     boolean isCorrect, isWrong;
     Button circleButton, crossButton;
@@ -46,12 +46,12 @@ public class TestActivity extends AppCompatActivity implements TextToSpeech.OnIn
     CountDown countDown = new CountDown(countNumber, interval);
 
     SharedPreferences mSetting;
-    Boolean isRandom, isReverse, isSortWrong;
+    Boolean isRandom, isReverse, isSortWrong, isAutoPlay;
 
     Realm realm = Realm.getDefaultInstance();
     int allSize = realm.where(Word.class).findAll().size();
-    boolean num[] = new boolean[allSize]; //重複判定用
-    int i, count = 1, numberOfWrong, categorySize, partOfSpeechSize, allWordSize;
+    boolean num[] = new boolean[allSize];
+    int i, count = 1, numberOfWrong, levelSize, partOfSpeechSize, allWordSize;
 
     private SimpleDateFormat dataFormat =
             new SimpleDateFormat("ss.SS", Locale.US);
@@ -67,10 +67,11 @@ public class TestActivity extends AppCompatActivity implements TextToSpeech.OnIn
         isRandom = mSetting.getBoolean("random", false);
         isReverse = mSetting.getBoolean("reverse", false);
         isSortWrong = mSetting.getBoolean("onlyWrong", false);
+        isAutoPlay = mSetting.getBoolean("autoPlay", false);
 
         //intent
         Intent intent = getIntent();
-        categoryIntent = intent.getStringExtra("CATEGORY");
+        levelIntent = intent.getStringExtra("LEVEL");
         partOfSpeechIntent = intent.getStringExtra("HINSHI");
         wordId = intent.getIntExtra("WORD ID", -1);
 
@@ -79,23 +80,33 @@ public class TestActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
         //the numbers of words
         if (isSortWrong) {
-            categorySize = realm.where(EditedData.class)
-                    .notEqualTo("correct", true)
-                    .equalTo("category", categoryIntent)
+            levelSize = realm.where(Word.class)
+                    .equalTo("level", levelIntent)
+                    .findAll()
+                    .size()
+                    - realm.where(EditedData.class).equalTo("category", levelIntent)
+                    .equalTo("correct", true)
                     .findAll()
                     .size();
-            partOfSpeechSize = realm.where(EditedData.class)
-                    .notEqualTo("correct", true)
+            partOfSpeechSize = realm.where(Word.class)
                     .equalTo("partOfSpeech", partOfSpeechIntent)
                     .findAll()
+                    .size()
+                    - realm.where(EditedData.class)
+                    .equalTo("partOfSpeech", partOfSpeechIntent)
+                    .equalTo("correct", true)
+                    .findAll()
                     .size();
-            allWordSize = realm.where(EditedData.class)
-                    .notEqualTo("correct", true)
+            allWordSize = realm.where(Word.class)
+                    .findAll()
+                    .size()
+                    - realm.where(EditedData.class)
+                    .equalTo("correct", true)
                     .findAll()
                     .size();
         } else {
-            categorySize = realm.where(Word.class)
-                    .equalTo("category", categoryIntent)
+            levelSize = realm.where(Word.class)
+                    .equalTo("level", levelIntent)
                     .findAll()
                     .size();
             partOfSpeechSize = realm.where(Word.class)
@@ -109,6 +120,7 @@ public class TestActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
         // すべての重複判定用配列をfalseにしておく
         for (int i = 0; i < allSize; i++) {
+
             num[i] = false;
         }
         num[wordId] = true; //initial word id has to be set "used"
@@ -116,7 +128,7 @@ public class TestActivity extends AppCompatActivity implements TextToSpeech.OnIn
         //最初に表示される単語情報
         wordData = realm.where(Word.class).equalTo("id", wordId).findFirst();
         word = wordData.getWord();
-        category = wordData.getCategory();
+        level = wordData.getLevel();
         partOfSpeech = wordData.getPartOfSpeech();
         meaning = wordData.getMeaning();
 
@@ -134,24 +146,24 @@ public class TestActivity extends AppCompatActivity implements TextToSpeech.OnIn
         final Button openingButton = findViewById(R.id.openingButton);
         Typeface typeface1 = Typeface.createFromAsset(TestActivity.this.getAssets(), "NagomiGokubosoGothic-ExtraLight.otf");
         openingButton.setTypeface(typeface1);
-        if (categoryIntent != null) {
-            openingButton.setText("カテゴリー:" + categoryIntent + " のテストを始める");
+        if (levelIntent != null) {
+            openingButton.setText("カテゴリー:" + levelIntent + " のテストを始める");
         } else if (partOfSpeechIntent != null) {
             openingButton.setText("品詞:" + partOfSpeechIntent + " のテストを始める");
         } else {
             openingButton.setText("すべての単語・表現のテストを始める");
         }
         countText = findViewById(R.id.countText);
-        if (categoryIntent != null) {
-            countText.setText(count + "/" + categorySize);
+        if (levelIntent != null) {
+            countText.setText(count + "/" + levelSize);
         } else if (partOfSpeechIntent != null) {
             countText.setText(count + "/" + partOfSpeechSize);
         } else {
             countText.setText(count + "/" + allWordSize);
         }
         timerText = findViewById(R.id.timerText);
-        final TextView categoryText = findViewById(R.id.categoryText);
-        categoryText.setText(category);
+        final TextView levelText = findViewById(R.id.levelText);
+        levelText.setText(level);
         final TextView partOfSpeechText = findViewById(R.id.partOfSpeechText);
         partOfSpeechText.setText(partOfSpeech);
         wordText = findViewById(R.id.wordText);
@@ -184,7 +196,7 @@ public class TestActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 }
                 editedData.setCorrect(true);
                 editedData.setWrong(false);
-                editedData.setCategory(category);
+                editedData.setLevel(level);
                 editedData.setPartOfSpeech(partOfSpeech);
                 realm.copyToRealmOrUpdate(editedData);
                 realm.commitTransaction();
@@ -203,7 +215,7 @@ public class TestActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 }
                 editedData.setCorrect(false);
                 editedData.setWrong(true);
-                editedData.setCategory(category);
+                editedData.setLevel(level);
                 editedData.setPartOfSpeech(partOfSpeech);
                 realm.copyToRealmOrUpdate(editedData);
                 realm.commitTransaction();
@@ -227,65 +239,93 @@ public class TestActivity extends AppCompatActivity implements TextToSpeech.OnIn
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (categoryIntent != null) {
-                    if (count != categorySize) {
+                if (levelIntent != null) {
+                    if (count != levelSize) {
                         if (isRandom) {  //when random checked
-                            for (int i = 0; i < 1; ) {
+                            for (int i = 0; i < allSize; ) {
                                 Random rand = new Random(); //ランダムな数値の初期値
                                 int randomNumber = rand.nextInt(allSize);
                                 if (!num[randomNumber]) {
                                     if (isSortWrong) {
-                                        editedData = realm.where(EditedData.class)
-                                                .notEqualTo("correct", true)
-                                                .equalTo("category", category)
+                                        wordData = realm.where(Word.class)
+                                                .equalTo("level", level)
                                                 .equalTo("id", randomNumber)
                                                 .findFirst();
-                                        if (editedData != null) {
-                                            num[randomNumber] = true; //使った値はtrueにしておく
-                                            wordData = realm.where(Word.class).equalTo("id", editedData.getId()).findFirst();
-                                            i = 1;  //stop the loop
+                                        if (wordData != null) {
+                                            editedData = realm.where(EditedData.class)
+                                                    .equalTo("id", randomNumber)
+                                                    .equalTo("correct", true)
+                                                    .findFirst();
+                                            if (editedData == null) { //if a wrong or unanswered word is found
+                                                num[randomNumber] = true;
+                                                i = allSize;
+                                            } else {
+                                                num[randomNumber] = true;
+                                                i++;
+                                            }
+                                        } else { //wordData == null
+                                            num[randomNumber] = true;
+                                            i++;
                                         }
                                     } else { // when wrong words not sorted
                                         wordData = realm.where(Word.class)
-                                                .equalTo("category", category)
+                                                .equalTo("level", level)
                                                 .equalTo("id", randomNumber)
                                                 .findFirst();
                                         if (wordData != null) { //when word data exists
-                                            num[randomNumber] = true; //使った値はtrueにしておく
                                             i = allSize;
+                                        } else {
+                                            i++;
                                         }
                                     }
                                 }
                             }
-                        } else {                           //when random not checked
+                        } else {         //when random not checked
                             if (isSortWrong) {
-                                editedData = realm.where(EditedData.class)
-                                        .equalTo("category", category)
-                                        .notEqualTo("correct", true)
-                                        .lessThan("id", wordId)
-                                        .findFirst();
-                                wordData = realm.where(Word.class).equalTo("id", editedData.getId()).findFirst();
-                            } else {
+                                for (int i = wordId - 1; i > -1; ) {
+                                    wordData = realm.where(Word.class)
+                                            .equalTo("level", level)
+                                            .equalTo("id", i)
+                                            .findFirst();
+                                    if (wordData != null) {
+                                        editedData = realm.where(EditedData.class)
+                                                .equalTo("id", i)
+                                                .equalTo("correct", true)
+                                                .findFirst();
+                                        if (editedData == null) {
+                                            i = -1;
+                                        } else { //if the word is a correct word
+                                            i--;
+                                        }
+                                    } else { //if the word doesn't exist
+                                        i--;
+                                    }
+                                }
+                            } else { //when not sorted
                                 wordData = realm.where(Word.class)
-                                        .equalTo("category", category)
                                         .lessThan("id", wordId)
+                                        .equalTo("level", level)
                                         .findAll()
                                         .last();
                             }
                         }
                         count++; //add 1 to count to know the position of a chosen word
-                        countText.setText(count + "/" + categorySize);
+                        countText.setText(count + "/" + levelSize);
                     } else { // after the last word
                         if (isSortWrong) {
-                            numberOfWrong = realm.where(EditedData.class)
-                                    .notEqualTo("correct", true)
-                                    .equalTo("category", categoryIntent)
+                            numberOfWrong = realm.where(Word.class)
+                                    .equalTo("level", levelIntent)
+                                    .findAll()
+                                    .size()
+                            - realm.where(EditedData.class)
+                                    .equalTo("level", levelIntent)
+                                    .equalTo("correct", true)
                                     .findAll()
                                     .size();
                             // ダイアログを表示する
                             AlertDialog.Builder builder = new AlertDialog.Builder(TestActivity.this);
                             builder.setTitle("全問題の回答が終了")
-                                    .setMessage("正解数: " + (categorySize - numberOfWrong) + "/" + categorySize)
+                                    .setMessage("正解数: " + (levelSize - numberOfWrong) + "/" + levelSize)
                                     .setNegativeButton("CLOSE", null);
                             AlertDialog confirmDialog = builder.create();
                             confirmDialog.show();
@@ -294,9 +334,9 @@ public class TestActivity extends AppCompatActivity implements TextToSpeech.OnIn
                             AlertDialog.Builder builder = new AlertDialog.Builder(TestActivity.this);
                             builder.setTitle("全問題の回答が終了")
                                     .setMessage("正解数: " + realm.where(EditedData.class)
-                                            .equalTo("category", category)
+                                            .equalTo("level", level)
                                             .equalTo("correct", true)
-                                            .findAll().size() + "/" + categorySize)
+                                            .findAll().size() + "/" + levelSize)
                                     .setNegativeButton("CLOSE", null);
                             AlertDialog confirmDialog = builder.create();
                             confirmDialog.show();
@@ -307,20 +347,30 @@ public class TestActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 } else if (partOfSpeechIntent != null) {
                     if (count != partOfSpeechSize) {
                         if (isRandom) {  //when random checked
-                            for (int i = 0; i < 1; ) {
+                            for (int i = 0; i < allSize; ) {
                                 Random rand = new Random(); //ランダムな数値の初期値
                                 int randomNumber = rand.nextInt(allSize);
                                 if (!num[randomNumber]) {
                                     if (isSortWrong) {
-                                        editedData = realm.where(EditedData.class)
-                                                .notEqualTo("correct", true)
+                                        wordData = realm.where(Word.class)
                                                 .equalTo("partOfSpeech", partOfSpeech)
                                                 .equalTo("id", randomNumber)
                                                 .findFirst();
-                                        if (editedData != null) {
-                                            num[randomNumber] = true; //使った値はtrueにしておく
-                                            wordData = realm.where(Word.class).equalTo("id", editedData.getId()).findFirst();
-                                            i = 1;
+                                        if (wordData != null) {
+                                            editedData = realm.where(EditedData.class)
+                                                    .equalTo("id", randomNumber)
+                                                    .equalTo("correct", true)
+                                                    .findFirst();
+                                            if (editedData == null) { //if a wrong or unanswered word is found
+                                                num[randomNumber] = true;
+                                                i = allSize;
+                                            } else {
+                                                num[randomNumber] = true;
+                                                i++;
+                                            }
+                                        } else { //wordData == null
+                                            num[randomNumber] = true;
+                                            i++;
                                         }
                                     } else { // when wrong words not sorted
                                         wordData = realm.where(Word.class)
@@ -328,21 +378,35 @@ public class TestActivity extends AppCompatActivity implements TextToSpeech.OnIn
                                                 .equalTo("id", randomNumber)
                                                 .findFirst();
                                         if (wordData != null) { //when word data exists
-                                            num[randomNumber] = true; //使った値はtrueにしておく
-                                            i = 1;
+                                            i = allSize;
+                                        } else {
+                                            i++;
                                         }
                                     }
                                 }
                             }
-                        } else {      //when random not checked
+                        } else {         //when random not checked
                             if (isSortWrong) {
-                                editedData = realm.where(EditedData.class)
-                                        .equalTo("partOfSpeech", partOfSpeech)
-                                        .notEqualTo("correct", true)
-                                        .lessThan("id", wordId)
-                                        .findFirst();
-                                wordData = realm.where(Word.class).equalTo("id", editedData.getId()).findFirst();
-                            } else {
+                                for (int i = wordId - 1; i > -1; ) {
+                                    wordData = realm.where(Word.class)
+                                            .equalTo("partOfSpeech", partOfSpeech)
+                                            .equalTo("id", i)
+                                            .findFirst();
+                                    if (wordData != null) {
+                                        editedData = realm.where(EditedData.class)
+                                                .equalTo("id", i)
+                                                .equalTo("correct", true)
+                                                .findFirst();
+                                        if (editedData == null) {
+                                            i = -1;
+                                        } else { //if the word is a correct word
+                                            i--;
+                                        }
+                                    } else { //if the word doesn't exist
+                                        i--;
+                                    }
+                                }
+                            } else { //when not sorted
                                 wordData = realm.where(Word.class)
                                         .equalTo("partOfSpeech", partOfSpeech)
                                         .lessThan("id", wordId)
@@ -383,40 +447,67 @@ public class TestActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 } else {  //all the words
                     if (count != allWordSize) {
                         if (isRandom) {  //when random checked
-                            for (int i = 0; i < 1; ) {
+                            for (int i = 0; i < allSize; ) {
                                 Random rand = new Random(); //ランダムな数値の初期値
                                 int randomNumber = rand.nextInt(allSize);
                                 if (!num[randomNumber]) {
                                     if (isSortWrong) {
-                                        editedData = realm.where(EditedData.class)
-                                                .notEqualTo("correct", true)
+                                        wordData = realm.where(Word.class)
                                                 .equalTo("id", randomNumber)
                                                 .findFirst();
-                                        if (editedData != null) {
-                                            num[randomNumber] = true; //使った値はtrueにしておく
-                                            wordData = realm.where(Word.class).equalTo("id", editedData.getId()).findFirst();
-                                            i = 1;
+                                        if (wordData != null) {
+                                            editedData = realm.where(EditedData.class)
+                                                    .equalTo("id", randomNumber)
+                                                    .equalTo("correct", true)
+                                                    .findFirst();
+                                            if (editedData == null) { //if a wrong or unanswered word is found
+                                                num[randomNumber] = true;
+                                                i = allSize;
+                                            } else {
+                                                num[randomNumber] = true;
+                                                i++;
+                                            }
+                                        } else { //wordData == null
+                                            num[randomNumber] = true;
+                                            i++;
                                         }
                                     } else { // when wrong words not sorted
                                         wordData = realm.where(Word.class)
                                                 .equalTo("id", randomNumber)
                                                 .findFirst();
                                         if (wordData != null) { //when word data exists
-                                            num[randomNumber] = true; //使った値はtrueにしておく
                                             i = allSize;
+                                        } else {
+                                            i++;
                                         }
                                     }
                                 }
                             }
-                        } else {  // not random
-                            if (isSortWrong) { //only wrong ang unanswered
-                                editedData = realm.where(EditedData.class)
-                                        .notEqualTo("correct", true)
+                        } else {         //when random not checked
+                            if (isSortWrong) {
+                                for (int i = wordId - 1; i > -1; ) {
+                                    wordData = realm.where(Word.class)
+                                            .equalTo("id", i)
+                                            .findFirst();
+                                    if (wordData != null) {
+                                        editedData = realm.where(EditedData.class)
+                                                .equalTo("id", i)
+                                                .equalTo("correct", true)
+                                                .findFirst();
+                                        if (editedData == null) {
+                                            i = -1;
+                                        } else { //if the word is a correct word
+                                            i--;
+                                        }
+                                    } else { //if the word doesn't exist
+                                        i--;
+                                    }
+                                }
+                            } else { //when not sorted
+                                wordData = realm.where(Word.class)
                                         .lessThan("id", wordId)
-                                        .findFirst();
-                                wordData = realm.where(Word.class).equalTo("id", editedData.getId()).findFirst();
-                            } else { // all
-                                wordData = realm.where(Word.class).lessThan("id", wordId).findAll().last();
+                                        .findAll()
+                                        .last();
                             }
                         }
                         count++;
@@ -451,7 +542,7 @@ public class TestActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 wordId = wordData.getId();
                 word = wordData.getWord();
                 meaning = wordData.getMeaning();
-                category = wordData.getCategory();
+                level = wordData.getLevel();
                 partOfSpeech = wordData.getPartOfSpeech();
                 //boolean data
                 editedData = realm.where(EditedData.class).equalTo("id", wordId).findFirst();
@@ -469,7 +560,7 @@ public class TestActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 } else {
                     wordText.setTextColor(Color.parseColor("#020202"));
                 }
-                categoryText.setText(category);
+                levelText.setText(level);
                 partOfSpeechText.setText(partOfSpeech);
                 if (isReverse) {
                     wordText.setText(meaning);
@@ -486,6 +577,9 @@ public class TestActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 crossButton.setVisibility(View.GONE);
                 timerText.setText(dataFormat.format(0));
                 countDown.start();
+                if (isAutoPlay && !isReverse) {
+                    speech();
+                }
             }
         });
 
@@ -495,6 +589,9 @@ public class TestActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 openingButton.setVisibility(View.GONE);
                 wordText.setVisibility(View.VISIBLE);
                 concealButton.setVisibility(View.VISIBLE);
+                if (isAutoPlay && !isReverse) {
+                    speech();
+                }
                 countDown.start();
             }
         });
@@ -509,6 +606,9 @@ public class TestActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 hearingButton.setVisibility(View.VISIBLE);
                 countDown.cancel();
                 nextButton.setVisibility(View.VISIBLE);
+                if (isAutoPlay && isReverse) {
+                    speech();
+                }
             }
         });
     }

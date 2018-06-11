@@ -8,7 +8,6 @@ import android.graphics.Typeface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -45,12 +44,11 @@ public class WordListActivity extends AppCompatActivity {
             reloadListView();
         }
     };
-    int allSize = mRealm.where(Word.class).findAll().size();
     private ListView mListView;
     private WordListAdapter mWordAdapter;
     private Word mWord, wordData;
     private EditedData editedData;
-    private String mPartOfSpeech, mCategory;
+    private String mPartOfSpeech, mLevel;
     private RealmResults<Word> mWordRealmResults;
     private List<Word> mWordList;
     private AlertDialog.Builder mBuilder;
@@ -73,14 +71,14 @@ public class WordListActivity extends AppCompatActivity {
         //intent
         Intent intent = getIntent();
         mPartOfSpeech = intent.getStringExtra("PART OF SPEECH");
-        mCategory = intent.getStringExtra("CATEGORY");
+        mLevel = intent.getStringExtra("LEVEL");
 
         //TextView setting
         TextView textView = findViewById(R.id.textView);
-        if (mCategory != null) {
-            textView.setText("カテゴリー:" + mCategory);
+        if (mLevel != null) {
+            textView.setText(mLevel);
         } else if (mPartOfSpeech != null) {
-            textView.setText("品詞:" + mPartOfSpeech);
+            textView.setText(mPartOfSpeech);
         } else {
             textView.setText("すべての単語・表現");
         }
@@ -106,7 +104,7 @@ public class WordListActivity extends AppCompatActivity {
                 mWord = (Word) parent.getAdapter().getItem(position);
                 Intent intent = new Intent(WordListActivity.this, WordCardActivity.class);
                 intent.putExtra("EXTRA_WORD", mWord.getId());
-                intent.putExtra("CATEGORY", mCategory);
+                intent.putExtra("LEVEL", mLevel);
                 intent.putExtra("HINSHI", mPartOfSpeech);
                 startActivity(intent);
             }
@@ -117,7 +115,16 @@ public class WordListActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 final Word word = (Word) parent.getAdapter().getItem(position);
-                showEditDialog(word);
+                int wordId = word.getId();
+                if (wordId <= 599) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(WordListActivity.this);
+                    builder.setMessage("最初から登録されている言葉は編集できません")
+                            .setNegativeButton("CLOSE", null);
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                } else {
+                    showEditDialog(word);
+                }
                 return true;
             }
         });
@@ -129,6 +136,14 @@ public class WordListActivity extends AppCompatActivity {
                 showRegisterDialog();
             }
         });
+
+        if (mLevel != null) {
+            if(mLevel.equals("あなたの言葉")){
+                fab.setVisibility(View.VISIBLE);
+            }else{
+                fab.setVisibility(View.GONE);
+            }
+        }
     }
 
     private void reloadListView() {
@@ -138,9 +153,9 @@ public class WordListActivity extends AppCompatActivity {
                     .equalTo("partOfSpeech", mPartOfSpeech)
                     .findAllSorted("id", Sort.DESCENDING);
 
-        } else if (mCategory != null) { //カテゴリーボタンからの変遷
+        } else if (mLevel != null) { //levelボタンからの変遷
             mWordRealmResults = mRealm.where(Word.class)
-                    .equalTo("category", mCategory)
+                    .equalTo("level", mLevel)
                     .findAllSorted("id", Sort.DESCENDING);
 
         } else {                        //一覧ボタンからの変遷
@@ -170,7 +185,6 @@ public class WordListActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 int wordId = sendWordData();
-                Log.d("TAG", "word ID is " + String.valueOf(wordId));
                 if (wordId == -1) {
                     // ダイアログを表示する
                     AlertDialog.Builder builder = new AlertDialog.Builder(WordListActivity.this);
@@ -182,7 +196,7 @@ public class WordListActivity extends AppCompatActivity {
                 } else {
                     Intent intent = new Intent(WordListActivity.this, TestActivity.class);
                     intent.putExtra("WORD ID", wordId);
-                    intent.putExtra("CATEGORY", mCategory);
+                    intent.putExtra("LEVEL", mLevel);
                     intent.putExtra("HINSHI", mPartOfSpeech);
                     startActivity(intent);
                 }
@@ -222,13 +236,13 @@ public class WordListActivity extends AppCompatActivity {
                             .contains("meaning", s)
                             .equalTo("partOfSpeech", mPartOfSpeech)
                             .findAllSorted("id", Sort.DESCENDING);
-                } else if (mCategory != null) {
+                } else if (mLevel != null) {
                     mWordRealmResults = mRealm.where(Word.class)
                             .contains("word", s, Case.INSENSITIVE)
-                            .equalTo("category", mCategory)
+                            .equalTo("level", mLevel)
                             .or()
                             .contains("meaning", s)
-                            .equalTo("category", mCategory)
+                            .equalTo("level", mLevel)
                             .findAllSorted("id", Sort.DESCENDING);
                 } else {
                     mWordRealmResults = mRealm.where(Word.class)
@@ -255,19 +269,9 @@ public class WordListActivity extends AppCompatActivity {
         final View layout = inflater.inflate(
                 R.layout.alert_dialog_custom,
                 (ViewGroup) findViewById(R.id.dialogCustom));
-        final Spinner categorySpinner = layout.findViewById(R.id.categorySpinner);
         final Spinner partOfSpeechSpinner = layout.findViewById(R.id.hinshiSpinner);
 
-        if (mCategory != null) {  //todo add categories
-            switch (mCategory) {
-                case "生活":
-                    categorySpinner.setSelection(1);
-                    break;
-                case "あいさつ":
-                    categorySpinner.setSelection(2);
-            }
-
-        } else if (mPartOfSpeech != null) {
+        if (mPartOfSpeech != null) {
             switch (mPartOfSpeech) {
                 case "名詞":
                     partOfSpeechSpinner.setSelection(1);
@@ -308,12 +312,11 @@ public class WordListActivity extends AppCompatActivity {
                 String sentWord = wordEdit.getText().toString();
                 EditText meaningEdit = layout.findViewById(R.id.meaningEdit);
                 String sentMeaning = meaningEdit.getText().toString();
-                String chosenCategory = categorySpinner.getSelectedItem().toString();
                 String chosenPartOfSpeech = partOfSpeechSpinner.getSelectedItem().toString();
-                if (sentWord.length() == 0 || sentMeaning.length() == 0 || chosenCategory.equals("--カテゴリ--") || chosenPartOfSpeech.equals("--品詞--")) {
-                    Toast.makeText(WordListActivity.this, "単語名、意味、品詞、カテゴリをすべて入力してください", Toast.LENGTH_LONG).show();
+                if (sentWord.length() == 0 || sentMeaning.length() == 0 || chosenPartOfSpeech.equals("--品詞--")) {
+                    Toast.makeText(WordListActivity.this, "単語名、意味、品詞をすべて入力してください", Toast.LENGTH_LONG).show();
                 } else {
-                    addOrEditWord(word, sentWord, sentMeaning, chosenCategory, chosenPartOfSpeech);
+                    addOrEditWord(word, sentWord, sentMeaning, chosenPartOfSpeech);
                     dialog.dismiss();
                 }
             }
@@ -339,49 +342,8 @@ public class WordListActivity extends AppCompatActivity {
         final EditText meaningEdit = layout.findViewById(R.id.meaningEdit);
         meaningEdit.setText(word.getMeaning()); //意味取得
 
-        final Spinner categorySpinner = layout.findViewById(R.id.categorySpinner);
         final Spinner partOfSpeechSpinner = layout.findViewById(R.id.hinshiSpinner);
-        if (mCategory != null) {
-            switch (mCategory) {
-                case "生活":
-                    categorySpinner.setSelection(1);
-                    break;
-                case "あいさつ":
-                    categorySpinner.setSelection(2);
-                    break;
-                case "基本単語":
-                    categorySpinner.setSelection(3);
-                    break;
-                case "数量":
-                    categorySpinner.setSelection(4);
-                    break;
-                case "その他":
-                    categorySpinner.setSelection(5);
-                    break;
-            }
-            String partOfSpeech = word.getPartOfSpeech();
-            switch (partOfSpeech) {
-                case "名詞":
-                    partOfSpeechSpinner.setSelection(1);
-                    break;
-                case "動詞":
-                    partOfSpeechSpinner.setSelection(2);
-                    break;
-                case "形容詞":
-                    partOfSpeechSpinner.setSelection(3);
-                    break;
-                case "副詞":
-                    partOfSpeechSpinner.setSelection(4);
-                    break;
-                case "前置詞":
-                    partOfSpeechSpinner.setSelection(5);
-                    break;
-                case "その他":
-                    partOfSpeechSpinner.setSelection(6);
-                    break;
-            }
-
-        } else if (mPartOfSpeech != null) {
+        if (mPartOfSpeech != null) {
             switch (mPartOfSpeech) {
                 case "名詞":
                     partOfSpeechSpinner.setSelection(1);
@@ -402,24 +364,8 @@ public class WordListActivity extends AppCompatActivity {
                     partOfSpeechSpinner.setSelection(6);
                     break;
             }
-            String category = word.getCategory();
-            switch (category) {
-                case "生活":
-                    categorySpinner.setSelection(1);
-                    break;
-                case "あいさつ":
-                    categorySpinner.setSelection(2);
-            }
+
         } else {
-            //カテゴリースピナーのセット
-            String category = word.getCategory();
-            switch (category) {
-                case "生活":
-                    categorySpinner.setSelection(1);
-                    break;
-                case "あいさつ":
-                    categorySpinner.setSelection(2);
-            }
             //品詞スピナーのセット
             String partOfSpeech = word.getPartOfSpeech();
             switch (partOfSpeech) {
@@ -459,12 +405,12 @@ public class WordListActivity extends AppCompatActivity {
                 // 編集 button pressed
                 String sentWord = wordEdit.getText().toString();
                 String sentMeaning = meaningEdit.getText().toString();
-                String chosenCategory = categorySpinner.getSelectedItem().toString();
                 String chosenPartOfSpeech = partOfSpeechSpinner.getSelectedItem().toString();
-                if (sentWord.isEmpty() || sentMeaning.isEmpty() || chosenCategory.equals("--カテゴリ--") || chosenPartOfSpeech.equals("--品詞--")) {
-                    Toast.makeText(WordListActivity.this, "単語名、意味、品詞、カテゴリをすべて入力してください", Toast.LENGTH_LONG).show();
+                if (sentWord.isEmpty() || sentMeaning.isEmpty() || chosenPartOfSpeech.equals("--品詞--")) {
+                    Toast.makeText(WordListActivity.this, "単語名、意味、品詞をすべて入力してください",
+                            Toast.LENGTH_LONG).show();
                 } else {
-                    addOrEditWord(word, sentWord, sentMeaning, chosenCategory, chosenPartOfSpeech);
+                    addOrEditWord(word, sentWord, sentMeaning, chosenPartOfSpeech);
                     dialog.dismiss();
                 }
             }
@@ -485,12 +431,19 @@ public class WordListActivity extends AppCompatActivity {
                                         RealmResults<Word> results = mRealm.where(Word.class)
                                                 .equalTo("id", wordId)
                                                 .findAll();
-                                        EditedData editedData = mRealm.where(EditedData.class).equalTo("id", wordId).findFirst();
+                                        EditedData editedData = mRealm.where(EditedData.class)
+                                                .equalTo("id", wordId).findFirst();
                                         mRealm.beginTransaction();
                                         results.deleteAllFromRealm();
-                                        editedData.deleteFromRealm();
+                                        if (editedData != null) {
+                                            editedData.deleteFromRealm();
+                                        }
                                         mRealm.commitTransaction();
                                         dialog.dismiss();
+                                        Toast.makeText(WordListActivity.this,
+                                                "単語を削除しました",
+                                                Toast.LENGTH_LONG)
+                                                .show();
                                     }
                                 }
                         ).setNegativeButton("CANCEL", null);
@@ -521,7 +474,6 @@ public class WordListActivity extends AppCompatActivity {
     private void addOrEditWord(Word word,
                                String sentWord,
                                String sentMeaning,
-                               String chosenCategory,
                                String chosenPartOfSpeech
     ) {
         if (word == null) { //新規作成のとき
@@ -533,7 +485,7 @@ public class WordListActivity extends AppCompatActivity {
             newWord.setId(identifier);
             newWord.setWord(sentWord);
             newWord.setMeaning(sentMeaning);
-            newWord.setCategory(chosenCategory);
+            newWord.setLevel("あなたの言葉");
             newWord.setPartOfSpeech(chosenPartOfSpeech);
             //既存の単語の判定をする
             final RealmResults<Word> existingWords = mRealm.where(Word.class)
@@ -552,7 +504,6 @@ public class WordListActivity extends AppCompatActivity {
         } else { //編集の時
             word.setWord(sentWord);
             word.setMeaning(sentMeaning);
-            word.setCategory(chosenCategory);
             word.setPartOfSpeech(chosenPartOfSpeech);
             mRealm.beginTransaction();
             mRealm.copyToRealmOrUpdate(word);
@@ -564,51 +515,85 @@ public class WordListActivity extends AppCompatActivity {
     private int sendWordData() {
         int wordId;
         int allSize = mRealm.where(Word.class).findAll().size();
+        int levelSize = mRealm.where(Word.class).equalTo("level", mLevel).findAll().size();
+
         boolean num[] = new boolean[allSize]; //重複判定用
+
         // すべての重複判定用配列をfalseにしておく
         for (int i = 0; i < allSize; i++) {
             num[i] = false;
         }
-
         // initial word data to send
-        if (mCategory != null) {       //category
-            if (isRandom) {  //when random checked
-                for (int i = 0; i < allSize; ) {
-                    Random rand = new Random(); //ランダムな数値の初期値
-                    int randomNumber = rand.nextInt(allSize);
-                    if (!num[randomNumber]) {
-                        if (isSortWrong) {
-                            editedData = mRealm.where(EditedData.class)
-                                    .notEqualTo("correct", true)
-                                    .equalTo("category", mCategory)
-                                    .equalTo("id", randomNumber)
-                                    .findFirst();
-                            if (editedData != null) {
-                                i = allSize;  //stop the loop
-                            }
-                        } else { // when wrong words not sorted
-                            wordData = mRealm.where(Word.class)
-                                    .equalTo("category", mCategory)
-                                    .equalTo("id", randomNumber)
-                                    .findFirst();
-                            if (wordData != null) { //when word data exists
-                                i = allSize;
+        if (mLevel != null) {       //category
+            if (levelSize != 0) {
+                if (isRandom) {  //when random checked
+                    for (int i = 0; i < allSize; ) {
+                        Random rand = new Random(); //ランダムな数値の初期値
+                        int randomNumber = rand.nextInt(allSize);
+                        if (!num[randomNumber]) {
+                            if (isSortWrong) {
+                                wordData = mRealm.where(Word.class)
+                                        .equalTo("level", mLevel)
+                                        .equalTo("id", randomNumber)
+                                        .findFirst();
+                                if (wordData != null) {
+                                    editedData = mRealm.where(EditedData.class)
+                                            .equalTo("id", randomNumber)
+                                            .equalTo("correct", true)
+                                            .findFirst();
+                                    if (editedData == null) { //if a wrong or unanswered word is found
+                                        i = allSize;
+                                    } else {
+                                        num[randomNumber] = true;
+                                        i++;
+                                    }
+                                } else { //wordData == null
+                                    num[randomNumber] = true;
+                                    i++;
+                                }
+                            } else { // when wrong words not sorted
+                                wordData = mRealm.where(Word.class)
+                                        .equalTo("level", mLevel)
+                                        .equalTo("id", randomNumber)
+                                        .findFirst();
+                                if (wordData != null) { //when word data exists
+                                    i = allSize;
+                                } else {
+                                    i++;
+                                }
                             }
                         }
                     }
+                } else {         //when random not checked
+                    if (isSortWrong) {
+                        for (int i = allSize - 1; i > -1; ) {
+                            wordData = mRealm.where(Word.class)
+                                    .equalTo("level", mLevel)
+                                    .equalTo("id", i)
+                                    .findFirst();
+                            if (wordData != null) {
+                                editedData = mRealm.where(EditedData.class)
+                                        .equalTo("id", i)
+                                        .equalTo("correct", true)
+                                        .findFirst();
+                                if (editedData == null) {
+                                    i = -1;
+                                } else { //if the word is a correct or answered word
+                                    i--;
+                                }
+                            } else { //if the word doesn't exist
+                                i--;
+                            }
+                        }
+                    } else { //when not sorted
+                        wordData = mRealm.where(Word.class)
+                                .equalTo("level", mLevel)
+                                .findAll()
+                                .last();
+                    }
                 }
-            } else {         //when random not checked
-                if (isSortWrong) {
-                    editedData = mRealm.where(EditedData.class)
-                            .equalTo("category", mCategory)
-                            .notEqualTo("correct", true)
-                            .findFirst();
-                } else {
-                    wordData = mRealm.where(Word.class)
-                            .equalTo("category", mCategory)
-                            .findAll()
-                            .last();
-                }
+            } else {
+                wordId = -1;
             }
         } else if (mPartOfSpeech != null) {//part of speech
             if (isRandom) {  //when random checked
@@ -617,14 +602,23 @@ public class WordListActivity extends AppCompatActivity {
                     int randomNumber = rand.nextInt(allSize);
                     if (!num[randomNumber]) {
                         if (isSortWrong) {
-                            editedData = mRealm.where(EditedData.class)
-                                    .notEqualTo("correct", true)
+                            wordData = mRealm.where(Word.class)
                                     .equalTo("partOfSpeech", mPartOfSpeech)
                                     .equalTo("id", randomNumber)
                                     .findFirst();
-                            if (editedData != null) {
-                                i = allSize;
-                            } else {
+                            if (wordData != null) {
+                                editedData = mRealm.where(EditedData.class)
+                                        .equalTo("id", randomNumber)
+                                        .equalTo("correct", true)
+                                        .findFirst();
+                                if (editedData == null) { //if a wrong or unanswered word is found
+                                    i = allSize;
+                                } else {
+                                    num[randomNumber] = true;
+                                    i++;
+                                }
+                            } else { //wordData == null
+                                num[randomNumber] = true;
                                 i++;
                             }
                         } else { // when wrong words not sorted
@@ -642,11 +636,26 @@ public class WordListActivity extends AppCompatActivity {
                 }
             } else {         //when random not checked
                 if (isSortWrong) {
-                    editedData = mRealm.where(EditedData.class)
-                            .equalTo("partOfSpeech", mPartOfSpeech)
-                            .notEqualTo("correct", true)
-                            .findFirst();
-                } else {
+                    for (int i = allSize - 1; i > -1; ) {
+                        wordData = mRealm.where(Word.class)
+                                .equalTo("partOfSpeech", mPartOfSpeech)
+                                .equalTo("id", i)
+                                .findFirst();
+                        if (wordData != null) {
+                            editedData = mRealm.where(EditedData.class)
+                                    .equalTo("id", i)
+                                    .equalTo("correct", true)
+                                    .findFirst();
+                            if (editedData == null) {
+                                i = -1;
+                            } else { //if the word is a correct or answered word
+                                i--;
+                            }
+                        } else { //if the word doesn't exist
+                            i--;
+                        }
+                    }
+                } else { //when not sorted
                     wordData = mRealm.where(Word.class)
                             .equalTo("partOfSpeech", mPartOfSpeech)
                             .findAll()
@@ -654,18 +663,29 @@ public class WordListActivity extends AppCompatActivity {
                 }
             }
         } else {     //all the words
-            if (isRandom) {//when random checked
+            if (isRandom) {  //when random checked
                 for (int i = 0; i < allSize; ) {
                     Random rand = new Random(); //ランダムな数値の初期値
                     int randomNumber = rand.nextInt(allSize);
                     if (!num[randomNumber]) {
                         if (isSortWrong) {
-                            editedData = mRealm.where(EditedData.class)
-                                    .notEqualTo("correct", true)
+                            wordData = mRealm.where(Word.class)
                                     .equalTo("id", randomNumber)
                                     .findFirst();
-                            if (editedData != null) {
-                                i = allSize;
+                            if (wordData != null) {
+                                editedData = mRealm.where(EditedData.class)
+                                        .equalTo("id", randomNumber)
+                                        .equalTo("correct", true)
+                                        .findFirst();
+                                if (editedData == null) { //if a wrong or unanswered word is found
+                                    i = allSize;
+                                } else {
+                                    num[randomNumber] = true;
+                                    i++;
+                                }
+                            } else { //wordData == null
+                                num[randomNumber] = true;
+                                i++;
                             }
                         } else { // when wrong words not sorted
                             wordData = mRealm.where(Word.class)
@@ -673,33 +693,42 @@ public class WordListActivity extends AppCompatActivity {
                                     .findFirst();
                             if (wordData != null) { //when word data exists
                                 i = allSize;
+                            } else {
+                                i++;
                             }
                         }
                     }
                 }
-            } else {      //when random not checked
+            } else {         //when random not checked
                 if (isSortWrong) {
-                    editedData = mRealm.where(EditedData.class)
-                            .notEqualTo("correct", true)
-                            .findFirst(); // set findFirst here
-                } else { //unconditioned
-                    wordData = mRealm
-                            .where(Word.class)
-                            .findFirst(); //set findFirst to get null where necessary
-                    if (wordData != null) {
-                        wordData = mRealm
-                                .where(Word.class)
-                                .findAll()
-                                .last();
+                    for (int i = allSize - 1; i > -1; ) {
+                        wordData = mRealm.where(Word.class)
+                                .equalTo("id", i)
+                                .findFirst();
+                        if (wordData != null) {
+                            editedData = mRealm.where(EditedData.class)
+                                    .equalTo("id", i)
+                                    .equalTo("correct", true)
+                                    .findFirst();
+                            if (editedData == null) {
+                                i = -1;
+                            } else { //if the word is a correct or answered word
+                                i--;
+                            }
+                        } else { //if the word doesn't exist
+                            i--;
+                        }
                     }
+                } else { //when not sorted
+                    wordData = mRealm.where(Word.class)
+                            .findAll()
+                            .last();
                 }
             }
         }
 
         if (wordData != null) {
             wordId = wordData.getId();
-        } else if (editedData != null) {
-            wordId = editedData.getId();
         } else {
             wordId = -1;
         }
