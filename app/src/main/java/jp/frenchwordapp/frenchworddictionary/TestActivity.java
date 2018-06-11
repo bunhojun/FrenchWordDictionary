@@ -15,11 +15,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Random;
-
 
 import io.realm.Realm;
 
@@ -37,7 +35,6 @@ public class TestActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
     private TextView timerText, countText;
     private TextToSpeech engine;
-
 
     // 5秒= 5x1000 = 5000 msec
     long countNumber = 5000;
@@ -84,7 +81,7 @@ public class TestActivity extends AppCompatActivity implements TextToSpeech.OnIn
                     .equalTo("level", levelIntent)
                     .findAll()
                     .size()
-                    - realm.where(EditedData.class).equalTo("category", levelIntent)
+                    - realm.where(EditedData.class).equalTo("level", levelIntent)
                     .equalTo("correct", true)
                     .findAll()
                     .size();
@@ -120,7 +117,6 @@ public class TestActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
         // すべての重複判定用配列をfalseにしておく
         for (int i = 0; i < allSize; i++) {
-
             num[i] = false;
         }
         num[wordId] = true; //initial word id has to be set "used"
@@ -147,9 +143,9 @@ public class TestActivity extends AppCompatActivity implements TextToSpeech.OnIn
         Typeface typeface1 = Typeface.createFromAsset(TestActivity.this.getAssets(), "NagomiGokubosoGothic-ExtraLight.otf");
         openingButton.setTypeface(typeface1);
         if (levelIntent != null) {
-            openingButton.setText("カテゴリー:" + levelIntent + " のテストを始める");
+            openingButton.setText(levelIntent + " のテストを始める");
         } else if (partOfSpeechIntent != null) {
-            openingButton.setText("品詞:" + partOfSpeechIntent + " のテストを始める");
+            openingButton.setText(partOfSpeechIntent + " のテストを始める");
         } else {
             openingButton.setText("すべての単語・表現のテストを始める");
         }

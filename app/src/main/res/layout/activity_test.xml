@@ -42,13 +42,14 @@
         android:layout_marginTop="30dp"
         android:textColor="#020202"
         android:id="@+id/levelText" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/partOfSpeechText"
         android:textColor="#020202"
-        android:layout_below="@+id/categoryText"/>
+        android:layout_below="@+id/levelText"/>
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -82,7 +83,6 @@
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
         android:layout_below="@+id/wordText"/>
-
     <Button
         android:layout_width="match_parent"
         android:layout_height="250dp"

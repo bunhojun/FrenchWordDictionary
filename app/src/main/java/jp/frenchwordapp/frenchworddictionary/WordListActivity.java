@@ -288,8 +288,11 @@ public class WordListActivity extends AppCompatActivity {
                 case "前置詞":
                     partOfSpeechSpinner.setSelection(5);
                     break;
-                case "その他":
+                case "数・時":
                     partOfSpeechSpinner.setSelection(6);
+                    break;
+                case "その他":
+                    partOfSpeechSpinner.setSelection(7);
                     break;
             }
         }
@@ -360,8 +363,11 @@ public class WordListActivity extends AppCompatActivity {
                 case "前置詞":
                     partOfSpeechSpinner.setSelection(5);
                     break;
-                case "その他":
+                case "数・時":
                     partOfSpeechSpinner.setSelection(6);
+                    break;
+                case "その他":
+                    partOfSpeechSpinner.setSelection(7);
                     break;
             }
 
@@ -384,8 +390,11 @@ public class WordListActivity extends AppCompatActivity {
                 case "前置詞":
                     partOfSpeechSpinner.setSelection(5);
                     break;
-                case "その他":
+                case "数・時":
                     partOfSpeechSpinner.setSelection(6);
+                    break;
+                case "その他":
+                    partOfSpeechSpinner.setSelection(7);
                     break;
             }
         }
